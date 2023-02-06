@@ -1,7 +1,7 @@
 import cors from "cors";
 import express from "express";
 import config from "./utils/config";
-
+import db from "./utils/mongoConnect";
 const mongoose = require('mongoose');
 const server = express();
 
