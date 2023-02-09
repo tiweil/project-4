@@ -16,8 +16,8 @@ async function deleteCategory(_id: string): Promise<void>{
 
 //Get all products
 function getAllProducts(): Promise<IProductModel[]>{
-//find describing the action needed, exec returning promise 
-return ProductModel.find().exec();
+//find describing the action needed, exec returning promise with virtual fields
+return ProductModel.find().populate("category").exec();
 }
 
 //Get one product

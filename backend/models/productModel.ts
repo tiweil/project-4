@@ -34,21 +34,23 @@ const ProductSchema=new Schema<IProductModel>({
     categoryId:{
         type:Schema.Types.ObjectId,
     }
-},{
-    versionKey:false,
-    toJSON:{virtuals:true} //when converting db to json -allow to bring virtual fields...
+}, {
+    versionKey:false, //dont create _v field
+    toJSON:{virtuals:true}, //support virtual fields when return JSON
+    id: false
 });
 
-ProductSchema.virtual("categories",{
-    ref:CategoryModel, //which model you are describing and connect
+//virtual field- not exist in the db, only in the model
+ProductSchema.virtual("category",{
+    ref:CategoryModel, //model, not a string
     localField:"categoryId", //which filed in our model is it
     foreignField:"_id", //which filed in category model is it
-    justOne:true, //category is a single object and not array
+    justOne:true //category is a single object and not array
     
 })
 //3.Model from the above interface and schema 
 //send "model name"(type string), schema name, db collection name"
-export const ProductModel=model<IProductModel>("ProductModel", ProductSchema, "products");
+export const ProductModel = model<IProductModel>("ProductModel", ProductSchema, "products");
 
 //For specifying types in functions we use the interface
 //for preforming operations with the model we use the model class

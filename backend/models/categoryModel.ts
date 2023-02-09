@@ -1,9 +1,9 @@
 import {Document, model, Schema} from 'mongoose';
-
+//interface
 export interface ICategoryModel extends Document{
     name:string;
 }
-
+//schema
 const CategorySchema=new Schema<ICategoryModel>({
     name: {
         type:String,
@@ -18,5 +18,5 @@ const CategorySchema=new Schema<ICategoryModel>({
     
     
 });
-//the brackets is for the schema??
-export const CategoryModel=model<ICategoryModel>("CategoryModel", CategorySchema, "categories");
+//model
+export const CategoryModel = model<ICategoryModel>("CategoryModel", CategorySchema, "categories");
