@@ -31,11 +31,14 @@ router_client.post("/new",  async (request: Request, response: Response, next: N
     try{
         // request.body.image = request.files?.image;
         const client = new ClientModel(request.body);
-        const addProduct = await clientLogic.addClient(client);
-        response.json(addProduct);
+        console.log(client);
+        const addClient = await clientLogic.addClient(client);
+        response.json(addClient);
     }
     catch(err:any){
         next(err);
+        console.log(err);
+        
     }
 });
 //update client

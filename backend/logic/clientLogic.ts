@@ -16,6 +16,7 @@ async function getOneClient(_id: string): Promise<IClientModel>{
 
 //Add new client
 function addClient(client: IClientModel): Promise<IClientModel>{
+    //console.log(client);
     return client.save();
     }
 
