@@ -1,6 +1,6 @@
 import {Document, model, Schema} from 'mongoose';
 import { CategoryModel } from './categoryModel';
-
+//1. Interface describing the model
 export interface IProductModel extends Document{
     name:string;
     categoryId:Schema.Types.ObjectId;
@@ -8,7 +8,7 @@ export interface IProductModel extends Document{
     image:string;
     
 }
-
+//2.Schema build from interface containing regarding the model
 const ProductSchema=new Schema<IProductModel>({
     name: {
         type:String,
@@ -43,8 +43,12 @@ ProductSchema.virtual("categories",{
     ref:CategoryModel, //which model you are describing and connect
     localField:"categoryId", //which filed in our model is it
     foreignField:"_id", //which filed in category model is it
-    justOne:true, //categoty is a single object and not array
+    justOne:true, //category is a single object and not array
     
 })
-//the brackets is for the schema??
+//3.Model from the above interface and schema 
+//send "model name"(type string), schema name, db collection name"
 export const ProductModel=model<IProductModel>("ProductModel", ProductSchema, "products");
+
+//For specifying types in functions we use the interface
+//for preforming operations with the model we use the model class
