@@ -2,7 +2,7 @@ import {Document, model, Schema} from 'mongoose';
 import { ClientModel } from './clientModel';
 
 export interface ICartModel extends Document{
-    client_id:Schema.Types.ObjectId;
+    clientId:Schema.Types.ObjectId;
     created:Date;
 }
 
@@ -13,7 +13,7 @@ const CartSchema=new Schema<ICartModel>({
         toDateString: [true]
     },
     
-    client_id:{
+    clientId:{
         type:Schema.Types.ObjectId,
     }
 },{
@@ -21,12 +21,12 @@ const CartSchema=new Schema<ICartModel>({
     toJSON:{virtuals:true} //when converting db to json -allow to bring virtual fields...
 });
 
-CartSchema.virtual("clients",{
+CartSchema.virtual("client",{
     ref:ClientModel, //which model you are describing and connect
-    localField:"client_id", //which filed in our model is it
+    localField:"clientId", //which filed in our model is it
     foreignField:"id_num", //which filed in category model is it
     justOne:true, //categoty is a single object and not array
     
 })
-//the brackets is for the schema??
+
 export const CartModel=model<ICartModel>("CartModel", CartSchema, "carts");

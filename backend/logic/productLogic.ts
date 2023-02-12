@@ -3,7 +3,7 @@ import { ResourceNotFoundError } from "../models/client-errors";
 import { IProductModel, ProductModel } from "../models/productModel"
 
 //Get all category
-function getAllcategory(): Promise<ICategoryModel[]>{
+function getAllCategory(): Promise<ICategoryModel[]>{
     //find describing the action needed, exec returning promise 
     return CategoryModel.find().exec();
     }
@@ -42,11 +42,27 @@ async function updateProduct(product: IProductModel): Promise<IProductModel>{
     return updateProduct;
     }
 
+//Get product by name
+const getProductByName = async (name: string): Promise<IProductModel> => {
+    const product = await ProductModel.findOne({name:"name"}).exec();
+    if(!product) throw new ResourceNotFoundError(name);
+    return product;
+    }
+
+//Get product by category
+const getProductByCategory = async (categoryId: string): Promise<IProductModel> => {
+    const categoryProduct = await ProductModel.find({categoryId:"categoryId"}).exec();
+    if(!categoryProduct) throw new ResourceNotFoundError(categoryId);
+    return categoryProduct;
+    }
+
     export default {
-        getAllcategory,
+        getAllCategory,
         getAllProducts,
         getOneProduct,
         addProduct,
         updateProduct,
         deleteCategory,
+        getProductByName,
+        getProductByCategory
     }

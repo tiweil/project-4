@@ -7,7 +7,7 @@ const router_product = express.Router();
 //get all category
 router_product.get("/cat",  async (request: Request, response: Response, next: NextFunction) => {
     try{
-        const categories = await productLogic.getAllcategory();
+        const categories = await productLogic.getAllCategory();
         response.json(categories);
     }
     catch(err:any){
@@ -72,5 +72,27 @@ router_product.put("/:_id",  async (request: Request, response: Response, next: 
         next(err);
     }
 });
-
+//Get product by name
+router_product.get("/:name",  async (request: Request, response: Response, next: NextFunction) => {
+    try{
+        request.body.name = request.params.name;
+        const name = await productLogic.getProductByName(request.body);
+        response.json(name);
+    }
+    catch(err:any){
+        next(err);
+    }
+});
+//Get product by category
+router_product.get("/:category",  async (request: Request, response: Response, next: NextFunction) => {
+    try{
+        request.body.categoryId = request.params.categoryId;
+         // request.body.image = request.files?.image;
+        const categoryProduct  = await productLogic.getProductByCategory(request.body);
+        response.json(categoryProduct);
+    }
+    catch(err:any){
+        next(err);
+    }
+});
 export default router_product;
