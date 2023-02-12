@@ -26,6 +26,7 @@ router_product.get("/cat/:_id",  async (request: Request, response: Response, ne
         next(err);
     }
 });
+
 //get all products
 router_product.get("/all",  async (request: Request, response: Response, next: NextFunction) => {
     try{
@@ -48,6 +49,7 @@ router_product.get("/:_id",  async (request: Request, response: Response, next: 
         next(err);
     }
 });
+
 //add new product
 router_product.post("/new",  async (request: Request, response: Response, next: NextFunction) => {
     try{
@@ -60,6 +62,7 @@ router_product.post("/new",  async (request: Request, response: Response, next: 
         next(err);
     }
 });
+
 //update product
 router_product.put("/:_id",  async (request: Request, response: Response, next: NextFunction) => {
     try{
@@ -72,6 +75,7 @@ router_product.put("/:_id",  async (request: Request, response: Response, next: 
         next(err);
     }
 });
+
 //Get product by name
 router_product.get("/:name",  async (request: Request, response: Response, next: NextFunction) => {
     try{
@@ -83,6 +87,7 @@ router_product.get("/:name",  async (request: Request, response: Response, next:
         next(err);
     }
 });
+
 //Get product by category
 router_product.get("/:category",  async (request: Request, response: Response, next: NextFunction) => {
     try{
@@ -95,4 +100,5 @@ router_product.get("/:category",  async (request: Request, response: Response, n
         next(err);
     }
 });
+
 export default router_product;

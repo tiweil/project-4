@@ -33,7 +33,7 @@ function addProduct(product: IProductModel): Promise<IProductModel>{
     }
 
 //Update product
-async function updateProduct(product: IProductModel): Promise<IProductModel>{
+const updateProduct= async(product: IProductModel): Promise<IProductModel>=>{
     const updateProduct = await ProductModel.findByIdAndUpdate(product._id, product, 
         //returnOriginal= will return database object and not argument object
         {returnOriginal: false }).exec();
@@ -50,11 +50,11 @@ const getProductByName = async (name: string): Promise<IProductModel> => {
     }
 
 //Get product by category
-const getProductByCategory = async (categoryId: string): Promise<IProductModel> => {
-    const categoryProduct = await ProductModel.find({categoryId:"categoryId"}).exec();
-    if(!categoryProduct) throw new ResourceNotFoundError(categoryId);
-    return categoryProduct;
-    }
+// const getProductByCategory = async (categoryId: string): Promise<IProductModel> => {
+//     const categoryProduct = await ProductModel.find({categoryId:"categoryId"}).exec();
+//     if(!categoryProduct) throw new ResourceNotFoundError(categoryId);
+//     return categoryProduct;
+//     }
 
     export default {
         getAllCategory,
@@ -63,6 +63,5 @@ const getProductByCategory = async (categoryId: string): Promise<IProductModel> 
         addProduct,
         updateProduct,
         deleteCategory,
-        getProductByName,
-        getProductByCategory
+        getProductByName
     }
