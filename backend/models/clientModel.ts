@@ -40,10 +40,10 @@ const ClientSchema: Schema=new Schema<IClient>({
     id_num:{
         type:Number,
         required: [true, "Missing id"],
-        min: [6, "Id is too short"],
-        max: [10, "Id  is too long"],
-        // trim: true,
-        unique: true
+        minlength: [6, "Id is too short"],
+        maxlength: [10, "Id  is too long"],
+        trim: true,
+        unique: true,
     },
     password:{
         type:String,
@@ -53,7 +53,7 @@ const ClientSchema: Schema=new Schema<IClient>({
         trim: true,
         // lowercase: [true,"PAssword should contains lowercase"],
         // uppercase:[true,""],
-        unique: true
+        //unique: true,
     },
     city:{
         type:String,

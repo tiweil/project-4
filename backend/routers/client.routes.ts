@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.get("/all", controller.getAllClients);
 router.post("/add", controller.addClient);
-router.get("/single/:tz", controller.getClientByTz);
+router.get("/single/:id", controller.getClientById_num);
 router.get("/name/:name", controller.getClientByName);
-router.patch("/update/:id", controller.updateClient);
-router.delete("/del/:id", controller.deleteClient);
+router.patch("/update/:_id", controller.updateClient);
+router.delete("/del/:_id", controller.deleteClient);
 
 export default router;

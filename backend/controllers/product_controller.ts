@@ -10,7 +10,6 @@ const testProds= async (request: Request, response: Response, next: NextFunction
 
 //all products
 const getAllProducts= async (request: Request, response: Response, next: NextFunction) => {
-    
     return ProductModel.find()
     .populate('categoryId')
     .select('-__v')
@@ -54,7 +53,6 @@ const updateProduct=async (request: Request, response: Response, next: NextFunct
     .then((product)=>{
     if(product){
         product.set(request.body);
-
         return product
         .save()
         .then((product)=> response.status(201).json(product))
