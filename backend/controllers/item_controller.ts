@@ -1,20 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import CartModel from "../models/cartModel";
 import ItemModel from "../models/itemModel";
-
-//add cart
-const addCart = async(request: Request, response: Response, next: NextFunction) => {
-    const cart = request.body;
-    const newCart = new CartModel({
-        _id:new mongoose.Types.ObjectId(),
-        ...cart,
-    });
-    return newCart
-    .save()
-    .then((cart)=> response.status(201).json(cart))
-    .catch((err)=> next(err));
-}
 
 //get all items by cart
 const getItemsByCart = async (request: Request, response: Response, next: NextFunction) => {
@@ -68,7 +54,6 @@ const deleteItem= async (request: Request, response: Response, next: NextFunctio
 }
 
 export default{
-    addCart,
     getItemsByCart,
     addItem, 
     updateItem,

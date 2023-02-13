@@ -67,12 +67,10 @@ const updateProduct=async (request: Request, response: Response, next: NextFunct
 // delete product 
 const deleteProduct=async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params.id;
-
     return ProductModel.findByIdAndDelete(id)
     .then((product)=>
     (product?response.status(201).json({message:"deleted"}):response.status(404).json({message:"not found"})))
     .catch((err)=> next(err));
-
 }
 
 //product by name
