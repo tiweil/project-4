@@ -1,75 +1,69 @@
-import {Document, model, Schema} from 'mongoose';
-import { CartModel } from './cartModel';
-import { ClientModel } from './clientModel';
+// import  CartModel  from './cartModel';
+// import ClientModel  from './clientModel';
+import mongoose,{Document, Schema} from 'mongoose';
 
-//1. Interface
-export interface IOrderCart extends Document {
-    clientId: Schema.Types.ObjectId;
-    cartId: Schema.Types.ObjectId;
-    sum: number;
-    city: string;
-    address: string;
-    arrival_date: Date;
-    order_date: Date;
-    last_fourCC: number;
+export interface IOrder{
+    clientId:Schema.Types.ObjectId;
+    cartId:Schema.Types.ObjectId;
+    sum:number;
+    city:string;
+    street:string;
+    arrival_date:Date;
+    order_date:Date;
+    last_fourCC:number;
 }
 
-//2. schema
-const OrderSchema = new Schema<IOrderCart>({
+export interface IOrderModel extends Document, IOrder{} 
+
+const OrderSchema: Schema=new Schema<IOrder>({
     clientId: {
         type:Schema.Types.ObjectId,
-        required: [true, "Missing Client"],
+        required: [true, "Missing client"],
+        ref: "clients"
     },
-    cartId: {
+    cartId:{
+        type:Schema.Types.ObjectId,
+        required: [true, "Missing Cart number"],
+        ref: "carts"
+    },
+    sum:{
         type:Number,
-        required: [true, "Missing Cart Number"],
+        required: [true, "Missing sum"],
+        
     },
-    sum: {
-        type:Number,
-    },
-    city: {
-        type: String,
+    city:{
+        type:String,
         required: [true, "Missing city"],
-        minlength: [5, "First name is too short"],
-        maxlength: [40, "First name is too long"],
+        //actually it should be in a select
+        minlength:[2, "City is..."]
+    },
+    street:{
+        type:String,
+        required: [true, "Missing street"],
+        minlength:[2, "Street name is too short"],
+        maxlength:[50, "Street name is too long"],
         trim: true
     },
-    address: {
-        type: String,
-        required: [true, "Missing address"],
-        minlength: [5, "Last name is too short"],
-        maxlength: [40, "Last name is too long"],
-        trim: true
+    arrival_date:{
+        type:Date,
+        // required: [true, "Missing date"],
+        
     },
-    arrival_date: {
-        type: Date,
+    order_date:{
+        type:Date,
+        required: [true, "Missing date"],
+        toDateString: [true]
     },
-    order_date: {
-        type: Date,
-    },
-    last_fourCC: {
-        type: Number,
+    last_fourCC:{
+        type:Number,
         required: [true, "Missing credit card 4 last numbers"],
-        minlength: [4, "please enter 4 numbers of your credit card"],
-        maxlength: [40, "please enter only the last 4 numbers of your credit card"],
-        trim: true
+        minlength:[4, "Please enter last 4 numbers of your credit card"],
+        maxlength:[4, "Please enter only the last 4 numbers of your credit card"],
+        
     },
-    },{
-        versionKey:false,
-        toJSON:{virtuals:true} //when converting db to json -allow to bring virtual fields...
-    });
+},{
+    versionKey:false,
+    
+});
 
-//join product id
-OrderSchema.virtual("product", {
-    ref: ClientModel,
-    localField: "clientId",
-    foreignField: "_id",
-})
-//join product id
-OrderSchema.virtual("cart", {
-    ref: CartModel,
-    localField: "cardId",
-    foreignField: "_id",
-})
-//3. model
-export const OrderModel=model<IOrderCart>("OrderModel", OrderSchema, "orders");
+export default mongoose.model<IOrderModel>("orders", OrderSchema);

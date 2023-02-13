@@ -1,15 +1,16 @@
-import {Document, model, Schema} from 'mongoose';
-import { CategoryModel } from './categoryModel';
-//1. Interface describing the model
-export interface IProductModel extends Document{
+import mongoose,{Document, Schema} from 'mongoose';
+import  CategoryModel  from './categoryModel';
+
+export interface IProduct {
     name:string;
     categoryId:Schema.Types.ObjectId;
     price:number;
     image:string;
     
 }
-//2.Schema build from interface containing regarding the model
-const ProductSchema=new Schema<IProductModel>({
+export interface IProductModel extends Document, IProduct{} 
+
+const ProductSchema: Schema=new Schema<IProduct>({
     name: {
         type:String,
         required: [true, "Missing name"],
@@ -33,24 +34,14 @@ const ProductSchema=new Schema<IProductModel>({
     },
     categoryId:{
         type:Schema.Types.ObjectId,
+        required: [true, "Missing category"],
+        ref:"categories"
     }
-}, {
-    versionKey:false, //dont create _v field
-    toJSON:{virtuals:true}, //support virtual fields when return JSON
-    id: false
-});
-
-//virtual field- not exist in the db, only in the model
-ProductSchema.virtual("category",{
-    ref:CategoryModel, //model, not a string
-    localField:"categoryId", //which filed in our model is it
-    foreignField:"_id", //which filed in category model is it
-    justOne:true //category is a single object and not array
+},{
+    timestamps:true,
     
-})
-//3.Model from the above interface and schema 
-//send "model name"(type string), schema name, db collection name"
-export const ProductModel = model<IProductModel>("ProductModel", ProductSchema, "products");
+    });
 
-//For specifying types in functions we use the interface
-//for preforming operations with the model we use the model class
+
+
+export default mongoose.model<IProductModel>("products", ProductSchema);

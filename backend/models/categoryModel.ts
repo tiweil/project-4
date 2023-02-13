@@ -1,10 +1,12 @@
-import {Document, model, Schema} from 'mongoose';
-//interface
-export interface ICategoryModel extends Document{
+
+import mongoose,{Document, Schema} from 'mongoose';
+
+export interface ICategory {
     name:string;
 }
-//schema
-const CategorySchema=new Schema<ICategoryModel>({
+export interface ICategoryModel extends Document, ICategory{} 
+
+const CategorySchema: Schema=new Schema<ICategory>({
     name: {
         type:String,
         required: [true, "Missing Category"],
@@ -18,5 +20,5 @@ const CategorySchema=new Schema<ICategoryModel>({
     
     
 });
-//model
-export const CategoryModel = model<ICategoryModel>("CategoryModel", CategorySchema, "categories");
+
+export default mongoose.model<ICategoryModel>("categories", CategorySchema);

@@ -1,32 +1,26 @@
-import {Document, model, Schema} from 'mongoose';
-import { ClientModel } from './clientModel';
+import mongoose,{Document, Schema} from 'mongoose';
 
-export interface ICartModel extends Document{
+export interface ICart {
     clientId:Schema.Types.ObjectId;
     created:Date;
 }
 
-const CartSchema=new Schema<ICartModel>({
+export interface ICartModel extends Document, ICart{} 
+
+const CartSchema: Schema=new Schema<ICart>({
     created: {
         type:Date,
         required: [true, "Missing date"],
         toDateString: [true]
     },
-    
-    clientId:{
+    clientId: {
         type:Schema.Types.ObjectId,
+        required: [true, "Missing id"],
+        ref: "clients"
     }
 },{
     versionKey:false,
-    toJSON:{virtuals:true} //when converting db to json -allow to bring virtual fields...
+    
 });
 
-CartSchema.virtual("client",{
-    ref:ClientModel, //which model you are describing and connect
-    localField:"clientId", //which filed in our model is it
-    foreignField:"id_num", //which filed in category model is it
-    justOne:true, //categoty is a single object and not array
-    
-})
-
-export const CartModel=model<ICartModel>("CartModel", CartSchema, "carts");
+export default mongoose.model<ICartModel>("carts", CartSchema);
