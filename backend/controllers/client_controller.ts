@@ -23,8 +23,9 @@ const addClient = async (request: Request, response: Response, next: NextFunctio
 //get client by id num
 const getClientById_num = async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params.id;
-    return clientModel.findOne({id:"id_num"})
-    .then((client)=>{
+    console.log(id);
+    return clientModel.findOne({id:'id_num'})
+    .then((client)=>{ console.log(client);
         client?response.status(200).json(client):response.status(200).json({message:"not found"})
     })
     .catch((err)=> next(err));
@@ -58,7 +59,14 @@ const updateClient = async (request: Request, response: Response, next: NextFunc
     .catch((err) => next(err));
 }
 
-const deleteClient = async (request: Request, response: Response, next: NextFunction) => {}
+const deleteClient = async (request: Request, response: Response, next: NextFunction) => {
+        const id = request.params.id;
+        return clientModel.findByIdAndDelete(id)
+        .then((client)=>
+        (client?response.status(201).json({message:"deleted"}):response.status(404).json({message:"not found"})))
+        .catch((err)=> next(err));
+}
+
 
 export default {
     getAllClients,
