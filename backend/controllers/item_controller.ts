@@ -5,7 +5,7 @@ import ItemModel from "../models/itemModel";
 //get all items by cart
 const getItemsByCart = async (request: Request, response: Response, next: NextFunction) => {
     const cart_id = request.params.cart; 
-    return ItemModel.findOne({cart_id:"_id"})
+    return ItemModel.find({"cartId" :cart_id})
     .populate(['productId','cartId'])
     .then((items) => {
         items ? response.status(200).json(items):response.status(200).json({message:"not found"})
