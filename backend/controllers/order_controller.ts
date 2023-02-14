@@ -75,7 +75,7 @@ const deleteOrder=async (request: Request, response: Response, next: NextFunctio
 //order by client id
 const getOrderByClientId= async (request: Request, response: Response, next: NextFunction) => {
     const client_id = request.params.id_num;
-    return OrderModel.find({client_id}).populate(['cartId', 'clientId'])
+    return OrderModel.find({"clientId":client_id}).populate(['cartId', 'clientId'])
     .then((items)=>{
         items?response.status(200).json(items):response.status(200).json({message:"not found"})
     })
