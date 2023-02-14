@@ -89,7 +89,7 @@ const getProductByName= async (request: Request, response: Response, next: NextF
 const getProductByCategory=async (request: Request, response: Response, next: NextFunction) => {
     console.log("hey from product by category");
     const productCat = request.params.category;
-    return ProductModel.find({productCat:"categoryId.name"}).populate("categoryId")
+    return ProductModel.find({"categoryId":productCat}).populate("categoryId")
     .then((items)=>{
         items?response.status(200).json(items):response.status(200).json({message:"not found"})
     })

@@ -3,7 +3,6 @@ import controller from "../controllers/client_controller";
 
 const router = express.Router();
 
-
 router.get("/all", controller.getAllClients);
 router.post("/add", controller.addClient);
 router.get("/single/:id", controller.getClientById_num);
