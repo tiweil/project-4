@@ -2,11 +2,11 @@ div {
     height: 100%;
     box-sizing: border-box;
     display:grid;
-    grid-template-rows: 15% 80% 5%;
+    grid-template-rows: 20% 80%;
     grid-template-columns: repeat(6, 1fr);
 }
 
-header,  footer {
+header{
     grid-column: span 6;
 }
 
