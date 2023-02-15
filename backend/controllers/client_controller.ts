@@ -11,6 +11,7 @@ const getAllClients = async (request: Request, response: Response, next: NextFun
 //add client
 const addClient = async (request: Request, response: Response, next: NextFunction) => {
     const client = request.body;
+    const isAdmin = 
     const newClient = new clientModel({
         _id:new mongoose.Types.ObjectId(),
         ...client,
