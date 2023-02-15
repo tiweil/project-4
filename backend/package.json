@@ -15,7 +15,8 @@
     "mongodb": "^5.0.0",
     "mongoose": "^6.9.0",
     "nodemon": "^2.0.20",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",

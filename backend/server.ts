@@ -8,8 +8,10 @@ import item_router from './routers/item.routes';
 import client_router from './routers/client.routes';
 import cart_router from './routers/cart.routes';
 import order_router from './routers/order.routes';
+import dotenv  from 'dotenv';
 
 const server = express();
+dotenv.config()
 
 server.use(cors());
 server.use(express.json());

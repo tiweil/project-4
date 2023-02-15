@@ -19,6 +19,7 @@ import { UpdateCartComponent } from './components/cart-area/update-cart/update-c
 import { LoginComponent } from './components/login-area/login/login.component';
 import { RegisterComponent } from './components/login-area/register/register.component';
 import { ContactUsComponent } from './components/about-area/contact-us/contact-us.component';
+import { MainAdminComponent } from './components/adminarea/main-admin/main-admin.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ContactUsComponent } from './components/about-area/contact-us/contact-u
     UpdateCartComponent,
     LoginComponent,
     RegisterComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    MainAdminComponent
   ],
   imports: [
     BrowserModule,

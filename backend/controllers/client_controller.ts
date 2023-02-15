@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import mongoose from "mongoose";
-import clientModel from "../models/clientModel";
+import clientModel, { Role } from "../models/clientModel";
 
 // get all client 
 const getAllClients = async (request: Request, response: Response, next: NextFunction) => {
@@ -9,9 +9,10 @@ const getAllClients = async (request: Request, response: Response, next: NextFun
     .catch((err)=> next(err));
 }
 //add client
-const addClient = async (request: Request, response: Response, next: NextFunction) => {
+const register = async (request: Request, response: Response, next: NextFunction) => {
     const client = request.body;
-    const isAdmin = 
+    const isAdmin=process.env.ADMINS.includes(client.email);
+    client.role = isAdmin ? Role.admin : Role.client;
     const newClient = new clientModel({
         _id:new mongoose.Types.ObjectId(),
         ...client,
@@ -19,6 +20,15 @@ const addClient = async (request: Request, response: Response, next: NextFunctio
     return newClient
     .save()
     .then((client)=> response.status(201).json(client))
+    .catch((err)=> next(err));
+}
+// login
+const login = async (request: Request, response: Response, next: NextFunction) => {
+    const client = request.body;
+    return clientModel.findOne({"email":client.email, "password": client.password })
+    .then((client)=>{
+        client?response.status(200).json({message:"welcome"}):response.status(200).json({message:"not found"})
+    })
     .catch((err)=> next(err));
 }
 //get client by id num
@@ -40,6 +50,7 @@ const getClientByName=async (request: Request, response: Response, next: NextFun
     })
     .catch((err)=> next(err));
 }
+
 
 const updateClient = async (request: Request, response: Response, next: NextFunction) => {
     const id = request.params._id;
@@ -71,7 +82,8 @@ const deleteClient = async (request: Request, response: Response, next: NextFunc
 
 export default {
     getAllClients,
-    addClient, 
+    register,
+    login, 
     getClientById_num,
     getClientByName, 
     updateClient, 

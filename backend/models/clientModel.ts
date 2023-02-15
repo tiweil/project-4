@@ -1,5 +1,12 @@
 import mongoose,{Document, Schema} from 'mongoose';
 
+export enum Role {
+    admin = 1,
+    client = 2,
+    guest = 3,
+}
+
+
 export interface IClient {
     first_name:string;
     last_name:string;
