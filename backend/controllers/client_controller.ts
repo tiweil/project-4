@@ -27,9 +27,9 @@ const login = async (request: Request, response: Response, next: NextFunction) =
     const client = request.body;
     return clientModel.findOne({"email":client.email, "password": client.password })
     .then((client)=>{
-        client?response.status(200).json({message:"true"}):response.status(200).json({message:"false"})
+        response.status(200).json(client)
     })
-    .catch((err)=> next(err));
+    .catch((err)=> next(err.message));
 }
 //get client by id num
 const getClientById_num = async (request: Request, response: Response, next: NextFunction) => {

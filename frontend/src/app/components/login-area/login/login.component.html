@@ -3,13 +3,15 @@
 <div class="box">
 <form (ngSubmit)="send()" >
 
-    <label>user name</label>
+    <label>use email:</label>
     <input type="text" name="name" [(ngModel)]="existsClient.email" required/>
 
-    <label>password</label>
+    <label>password:</label>
     <input type="password" name="password" [(ngModel)]="existsClient.password" required/>
 
     <button>Login</button>
-    or register <a routerLink="/register" routerLinkActive="active" >here</a>
+    or register <a routerLink="/register" >here</a>
 </form>
+
+    <p [title]="clientName"></p>
 </div>

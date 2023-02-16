@@ -11,21 +11,45 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   public existsClient = new ClientModel();
+  //RegisterComponent: any;
+
+  public clientName : string="hi";
 
   constructor(private loginService: LoginService,  private router: Router ) {}
 
   public async send() {
     try {
       console.log(this.existsClient);
-      const log = await this.loginService.login(this.existsClient);
-      if(log.email==this.existsClient.email && log.password==this.existsClient.password){
-      alert("welcome and enjoy shopping");
-    this.router.navigateByUrl("/layout");
-      }else{
-        alert("maybe you need to register or one of t*//*-he failed wrong ")
+      const isClient = await this.loginService.login(this.existsClient);
+      console.log(isClient);
+      //   if(isClient.role ===2){
+      //   alert(`welcome ${isClient.first_name} and enjoy shopping`);
+      //   this.clientName = `Hello ${isClient.first_name}` ;
+      //   this.router.navigateByUrl("/layout");
+      // }
+      // if(isClient.role ===1){
+      //   this.clientName = `Hello ${isClient.first_name}` ;
+      //   alert(`welcome admin ${isClient.first_name} `);
+      // }
+      // else{
+      //   alert("Did you signed before?/ or one of your failed wrong ");
+      // }
+      switch(isClient.role){
+        case 0:
+          alert("Did you signed before?/ or one of your failed wrong ");
+          break;
+
+        case 1:
+          alert(`welcome admin ${isClient.first_name}`);
+          break;
+
+        case 2:
+          alert(`welcome back ${isClient.first_name}! enjoy shopping`);
+          break;
       }
     } catch (err:any) {
       alert(err.message);
     }
   }
+
 }

@@ -15,10 +15,12 @@ export class LoginService {
   public async login(myClient: ClientModel): Promise<ClientModel> {
     // get the observable
   const observable = this.http.post<ClientModel>(appConfig.loginUrl, myClient); 
+  console.log(observable);
     //convert to promise
-  const client = await firstValueFrom(observable);
+  const isClient = await firstValueFrom(observable);
+  console.log(isClient);
   
-  return client;
+  return isClient;
   }
 }
 
