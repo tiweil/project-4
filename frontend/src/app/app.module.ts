@@ -19,7 +19,8 @@ import { UpdateCartComponent } from './components/cart-area/update-cart/update-c
 import { LoginComponent } from './components/login-area/login/login.component';
 import { RegisterComponent } from './components/login-area/register/register.component';
 import { ContactUsComponent } from './components/about-area/contact-us/contact-us.component';
-import { MainAdminComponent } from './components/adminarea/main-admin/main-admin.component';
+import { FooterComponent } from './components/layout-area/footer/footer.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,15 +41,15 @@ import { MainAdminComponent } from './components/adminarea/main-admin/main-admin
     LoginComponent,
     RegisterComponent,
     ContactUsComponent,
-    MainAdminComponent
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    //http
-    HttpClientModule
+    FormsModule,//Two way binding
+    HttpClientModule //http
   ],
   providers: [],
-  bootstrap: [LayoutComponent]
+  bootstrap: [LoginComponent]
 })
 export class AppModule { }

@@ -1,6 +1,6 @@
-import { ProductModel } from './../../../models/product.model';
 import { Component } from '@angular/core';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductModel } from 'src/models/product.model';
+import { ProductService } from 'src/services/product.service';
 
 @Component({
   selector: 'app-product-list',

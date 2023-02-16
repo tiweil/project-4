@@ -27,7 +27,7 @@ const login = async (request: Request, response: Response, next: NextFunction) =
     const client = request.body;
     return clientModel.findOne({"email":client.email, "password": client.password })
     .then((client)=>{
-        client?response.status(200).json({message:"welcome"}):response.status(200).json({message:"not found"})
+        client?response.status(200).json({message:"true"}):response.status(200).json({message:"false"})
     })
     .catch((err)=> next(err));
 }
