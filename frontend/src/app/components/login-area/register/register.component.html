@@ -1,2 +1,31 @@
+<p>register works!</p>
+<div class="box">
 
- <p>register works!</p>
+<form (ngSubmit)="send()" >
+
+    <label>First Name:</label>
+    <input type="text" name="first_name" [(ngModel)]="newClient.first_name" required/>
+
+    <label>Last Name:</label>
+    <input type="text" name="last_name" [(ngModel)]="newClient.last_name" required/>
+
+    <label> Email:</label>
+    <input type="text" name="email" [(ngModel)]="newClient.email" required/>
+
+    <label> Id:</label>
+    <input type="text" name="id_num" [(ngModel)]="newClient.id_num" required/>
+
+    <label>Password:</label>
+    <input type="password" name="password" [(ngModel)]="newClient.password" required/>
+
+    <label> City:</label>
+    <input type="text" name="city" [(ngModel)]="newClient.city" required/>
+
+    <label> Street:</label>
+    <input type="text" name="street" [(ngModel)]="newClient.street" required/>
+
+    <button>register</button>
+</form>
+
+</div>
+

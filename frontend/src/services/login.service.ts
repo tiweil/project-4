@@ -13,14 +13,25 @@ export class LoginService {
 
   //login client
   public async login(myClient: ClientModel): Promise<ClientModel> {
+    
     // get the observable
   const observable = this.http.post<ClientModel>(appConfig.loginUrl, myClient); 
-  console.log(observable);
+
     //convert to promise
   const isClient = await firstValueFrom(observable);
-  console.log(isClient);
-  
+
   return isClient;
   }
+
+  //register
+  public async register(newClient: ClientModel): Promise<ClientModel> {
+
+    const observable = this.http.post<ClientModel>(appConfig.registerUrl, newClient);
+
+    const addClient = await firstValueFrom(observable);
+
+    return addClient;
+  }
+  
 }
 

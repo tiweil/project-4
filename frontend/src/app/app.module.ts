@@ -17,10 +17,10 @@ import { CartProductsComponent } from './components/cart-area/cart-products/cart
 import { EmptyCartComponent } from './components/cart-area/empty-cart/empty-cart.component';
 import { UpdateCartComponent } from './components/cart-area/update-cart/update-cart.component';
 import { LoginComponent } from './components/login-area/login/login.component';
-import { RegisterComponent } from './components/login-area/register/register.component';
 import { ContactUsComponent } from './components/about-area/contact-us/contact-us.component';
 import { FooterComponent } from './components/layout-area/footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './components/login-area/register/register.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +39,10 @@ import { FormsModule } from '@angular/forms';
     EmptyCartComponent,
     UpdateCartComponent,
     LoginComponent,
-    RegisterComponent,
     ContactUsComponent,
-    FooterComponent
+    FooterComponent,
+    RegisterComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -50,6 +51,6 @@ import { FormsModule } from '@angular/forms';
     HttpClientModule //http
   ],
   providers: [],
-  bootstrap: [LoginComponent]
+  bootstrap: [LayoutComponent]
 })
 export class AppModule { }
