@@ -1,30 +1,77 @@
 <p>register works!</p>
 <div class="box">
 
-<form (ngSubmit)="send()" >
 
-    <label>First Name:</label>
-    <input type="text" name="first_name" [(ngModel)]="newClient.first_name" required/>
+    <form #registrationForm="ngForm"(ngSubmit)="send()">
+  
+    <div>
+        <label for="first_name">Name:</label>
+        <input type="text" id="name" name="first_name" [(ngModel)]="newClient.first_name" required minlength="2" maxlength="20">
+        <div *ngIf="registrationForm.controls['first_name'].invalid && (registrationForm.controls['first_name'].dirty || registrationForm.controls['first_name'].touched)">
+          <div *ngIf="registrationForm.controls['first_name'].errors['required']">
+            Name is required.
+          </div>
+          <div *ngIf="registrationForm.controls['first_name'].errors['minlength']">
+            Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="registrationForm.controls['first_name'].errors['maxlength']">
+            Name cannot be longer than 20 characters.
+          </div>
+        </div>
+    </div>
 
-    <label>Last Name:</label>
-    <input type="text" name="last_name" [(ngModel)]="newClient.last_name" required/>
+    <div>
+        <label for="last_name">Last Name:</label>
+        <input type="text" id="name" name="last_name" [(ngModel)]="newClient.last_name" required minlength="2" maxlength="20">
+        <div *ngIf="registrationForm.controls['last_name'].invalid && (registrationForm.controls['last_name'].dirty || registrationForm.controls['last_name'].touched)">
+          <div *ngIf="registrationForm.controls['last_name'].errors['required']">
+            Name is required.
+          </div>
+          <div *ngIf="registrationForm.controls['last_name'].errors['minlength']">
+            Name must be at least 2 characters long.
+          </div>
+          <div *ngIf="registrationForm.controls['last_name'].errors['maxlength']">
+            Name cannot be longer than 20 characters.
+          </div>
+        </div>
+    </div>
 
-    <label> Email:</label>
-    <input type="text" name="email" [(ngModel)]="newClient.email" required/>
+    <div>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="newClient.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        <div *ngIf="registrationForm.controls['email'].invalid && (registrationForm.controls['email'].dirty || registrationForm.controls['email'].touched)">
+          <div *ngIf="registrationForm.controls['email'].errors['required']">
+            Email is required.
+          </div>
+          <div *ngIf="registrationForm.controls['email'].errors['pattern']">
+            Email must be a valid email address.
+          </div>
+        </div>
+      </div>
 
-    <label> Id:</label>
-    <input type="text" name="id_num" [(ngModel)]="newClient.id_num" required/>
+    <div>
+        <label for="id_num">Id:</label>
+        <input type="number" id="id_num" name="id_num" [(ngModel)]="newClient.id_num" required minlength="9" maxlength="10">
+        <div *ngIf="registrationForm.controls['id_num'].invalid && (registrationForm.controls['id_num'].dirty || registrationForm.controls['id_num'].touched)">
+          <div *ngIf="registrationForm.controls['id_num'].errors['required']">
+            Id is required.
+          </div>
+          <div *ngIf="registrationForm.controls['id_num'].errors['minlength']">
+            Name must be at least 9 characters long.
+          </div>
+          <div *ngIf="registrationForm.controls['id_num'].errors['maxlength']">
+            Name cannot be longer than 10 characters.
+          </div>
+        </div>
+    </div>
 
-    <label>Password:</label>
-    <input type="password" name="password" [(ngModel)]="newClient.password" required/>
-
-    <label> City:</label>
-    <input type="text" name="city" [(ngModel)]="newClient.city" required/>
-
-    <label> Street:</label>
-    <input type="text" name="street" [(ngModel)]="newClient.street" required/>
-
-    <button>register</button>
+    <label for="city">City:</label>
+    <select [(ngModel)]="newClient.city">
+      <option value="">-- Select a city --</option>
+      <option *ngFor="let city of cities" [value]="city.id">{{city}}</option>
+    </select>
+    
+    <button type="submit" [disabled]="registrationForm.invalid">Submit</button>
 </form>
 
 </div>

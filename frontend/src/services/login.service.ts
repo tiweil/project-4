@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom} from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
 import { ClientModel } from 'src/models/client.model';
 
@@ -8,7 +8,7 @@ import { ClientModel } from 'src/models/client.model';
   providedIn: 'root'
 })
 export class LoginService {
-
+  
   constructor(private http: HttpClient) { }
 
   //login client
@@ -32,6 +32,21 @@ export class LoginService {
 
     return addClient;
   }
-  
+
+  //list cities
+  public async getCities(country: string): Promise<any> {
+    const object = {"country":country};
+    console.log(object);
+    try{
+    const url = 'https://countriesnow.space/api/v0.1/countries/cities';
+    const o = this.http.post<any>(url,object);
+    const cities = await firstValueFrom(o);
+    console.log(cities.data);
+    return cities.data;
+    }catch(err:any){
+      console.log(err);
+    }
+  }
+
 }
 
