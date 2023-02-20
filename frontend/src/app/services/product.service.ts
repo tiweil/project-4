@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-//http
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
-import { ProductModel } from 'src/models/product.model';
+import { ProductModel } from '../models/product.model';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  //httpהקונסטרקוטר מייצר אוביקט חדש מסוג  
   constructor(private http: HttpClient) { }
 
     public async getAllProducts(): Promise<ProductModel[]> {

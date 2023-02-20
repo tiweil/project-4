@@ -10,9 +10,10 @@ import { AddProductComponent } from './components/product-area/add-product/add-p
 import { ProductListComponent } from './components/product-area/product-list/product-list.component';
 
 const routes: Routes = [
+{ path:"login", component: LoginComponent },
   { path:"layout", component: LayoutComponent },
   { path:"home", component: HomeComponent },
-  { path:"login", component: LoginComponent },
+  
   { path:"products", component: ProductListComponent },
   { path:"register", component: RegisterComponent },
   { path:"products/new", component: AddProductComponent },

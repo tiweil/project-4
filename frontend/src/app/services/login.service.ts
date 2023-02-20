@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, firstValueFrom} from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
-import { ClientModel } from 'src/models/client.model';
+import { ClientModel } from 'src/app/models/client.model';
 
 @Injectable({
   providedIn: 'root'
@@ -36,12 +36,11 @@ export class LoginService {
   //list cities
   public async getCities(country: string): Promise<any> {
     const object = {"country":country};
-    console.log(object);
+    
     try{
     const url = 'https://countriesnow.space/api/v0.1/countries/cities';
-    const o = this.http.post<any>(url,object);
-    const cities = await firstValueFrom(o);
-    console.log(cities.data);
+    const observable = this.http.post<any>(url,object);
+    const cities = await firstValueFrom(observable);
     return cities.data;
     }catch(err:any){
       console.log(err);

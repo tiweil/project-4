@@ -19,7 +19,7 @@ import { UpdateCartComponent } from './components/cart-area/update-cart/update-c
 import { LoginComponent } from './components/login-area/login/login.component';
 import { ContactUsComponent } from './components/about-area/contact-us/contact-us.component';
 import { FooterComponent } from './components/layout-area/footer/footer.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/login-area/register/register.component';
 
 @NgModule({
@@ -48,7 +48,8 @@ import { RegisterComponent } from './components/login-area/register/register.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,//Two way binding
-    HttpClientModule //http
+    HttpClientModule, //http
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [LayoutComponent]
