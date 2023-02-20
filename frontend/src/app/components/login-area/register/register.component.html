@@ -58,15 +58,19 @@
     </select>
     <!-- validation -->
     <div *ngIf="myForm.get('city').invalid && (myForm.get('city').dirty || myForm.get('city').touched)" class="text-danger">
-      <div *ngIf="myForm.controls.city.hasError('required')">city is required.</div>
-      <div *ngIf="myForm.get('city').invalid">Invalid password.</div>
+      <div *ngIf="myForm.controls.city.hasError('required')">Please select an option</div>
     </div><br/>
     
-  <!-- street!!!! -->
+    <label>street:</label>
+    <input class="form-control" type="text" formControlName="street" />
+    <!-- validation -->
+    <div *ngIf="myForm.get('street').invalid && (myForm.get('street').dirty || myForm.get('street').touched)" class="text-danger">
+      <div *ngIf="myForm.controls.street.hasError('required')">street is required.</div>
+      <div *ngIf="myForm.get('street').invalid">Invalid street.</div>
+      <div *ngIf="myForm.get('street').value.length">Password must be at least 3 characters.</div>
+    </div>
 
-  <button class="btn btn-primary" [disabled]="myForm.invalid"> Register </button><br/>
-    or register 
-  <a routerLink="/register"> here </a>
+  <button class="btn btn-primary" [disabled]="myForm.invalid"> Register </button>
 
 
 </form>

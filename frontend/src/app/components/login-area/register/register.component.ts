@@ -17,8 +17,8 @@ export class RegisterComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     id_num: new FormControl(0, [Validators.required, Validators.minLength(8)]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    city: new FormControl('', [Validators.required, Validators.required]),
-    // street: new FormControl('', [Validators.required, Validators.])
+    city: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required, Validators.minLength(3)])
   });
 
   public newClient = new ClientModel();
