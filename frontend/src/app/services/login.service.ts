@@ -25,7 +25,9 @@ export class LoginService {
 
   //register
   public async register(newClient: ClientModel): Promise<ClientModel> {
-
+    //const formData = { ...newClient };
+    //delete formData.confirmPassword;
+    console.log(newClient);
     const observable = this.http.post<ClientModel>(appConfig.registerUrl, newClient);
 
     const addClient = await firstValueFrom(observable);

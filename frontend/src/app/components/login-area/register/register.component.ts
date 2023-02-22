@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientModel } from 'src/app/models/client.model';
 import { LoginService } from 'src/app/services/login.service';
@@ -9,46 +9,70 @@ import { LoginService } from 'src/app/services/login.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
 export class RegisterComponent implements OnInit {
-
-  public myForm = new FormGroup({
-    first_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    last_name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    id_num: new FormControl(0, [Validators.required, Validators.minLength(8)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    city: new FormControl('', [Validators.required]),
-    street: new FormControl('', [Validators.required, Validators.minLength(3)])
-  });
-
   public newClient = new ClientModel();
   public myCountry:string = "israel";
   public cities: any[];
-  selectedCity: string;
+  public myForm: FormGroup;
 
-  constructor( private loginService: LoginService, private router:Router ) {}
+constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router:Router ) {
+this.myForm = this.formBuilder.group({
+  first_name: ['', Validators.required],
+  last_name: ['', Validators.required],
+  email: ['', [Validators.required, Validators.email]],
+  id_num: ['', Validators.required],
+  password: ['', [Validators.required, Validators.minLength(8)]],
+  confirmPassword: [''],
+  city: ['', Validators.required],
+  street: ['', Validators.required]
+}, { validator: this.passwordMatchValidator });
+}
 
-  public async ngOnInit() {
-    this.cities = await this.loginService.getCities(this.myCountry);
+public async ngOnInit() {
+  this.cities = await this.loginService.getCities(this.myCountry);
+  }
+  
+ // custom validator to check if password and confirmPassword fields match
+ passwordMatchValidator(formGroup: FormGroup) {
+  const password = formGroup.get('password').value;
+  const confirmPassword = formGroup.get('confirmPassword').value;
+  return password === confirmPassword ? null : { passwordMismatch: true };
+}
+
+public async send() {
+  if (this.myForm.invalid) {
+    // Mark all form controls as touched to trigger the display of validation errors
+    Object.values(this.myForm.controls).forEach(control => {
+      control.markAsTouched();
+    });
+    // Prevent the form from submitting
+    return;
   }
 
-  public async send(){
-    this.newClient.first_name = this.myForm.get('first_name').value;
-    this.newClient.last_name = this.myForm.get('last_name').value;
-    this.newClient.email = this.myForm.get('email').value;
-    this.newClient.id_num = this.myForm.get('id_num').value;
-    this.newClient.password=this.myForm.get('password').value;
-    this.newClient.city = this.myForm.get('city').value;
-    this.newClient.street = this.myForm.get('street').value;
-    console.log(this.newClient);
-    try {
-      await this.loginService.register(this.newClient);
-      alert("welcome!");
-      this.router.navigateByUrl("/products");
-    } 
-    catch (err:any) {
-      console.log(err);
-    }
-  }
+  // If the form is valid, proceed with sending the data to the backend
+  const formData = this.myForm.value;
+  this.newClient = new ClientModel();
+  this.newClient.first_name = formData.first_name;
+  this.newClient.last_name = formData.last_name;
+  this.newClient.email = formData.email;
+  this.newClient.id_num = formData.id_num;
+  this.newClient.password = formData.password;
+  this.newClient.city = formData.city;
+  this.newClient.street = formData.street;
+  console.log(this.newClient);
+  try{
+  await this.loginService.register(this.newClient);
+  alert(`welcome ${this.newClient.first_name}!`);
+this.router.navigateByUrl("/products");
+}
+catch(err:any){
+  console.log(err)
+}
+}
+
+
 
 }
+
+

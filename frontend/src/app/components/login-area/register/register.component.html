@@ -1,78 +1,89 @@
-<p>register works!</p>
-<div class="box">
-    <form [formGroup]="myForm" (ngSubmit)="send()">
-  
+ <p>register works!</p>
+ <div class="box">
+  <form [formGroup]="myForm" (ngSubmit)="send()">
     <div class="form-group">
-      <label>First name:</label>
-      <input  class="form-control" formControlName="first_name" type="text" />
-      <!-- validation -->
-      <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)" class="text-danger">
-        <div *ngIf="myForm.controls.first_name.hasError('required')">Email is required.</div>
-        <div *ngIf="myForm.get('email').invalid">Invalid email.</div>
+      <label for="first_name">First Name</label>
+      <input type="text" formControlName="first_name" class="form-control">
+      <div *ngIf="myForm.get('first_name').invalid && (myForm.get('first_name').dirty || myForm.get('first_name').touched)">
+        <div *ngIf="myForm.get('first_name').errors['required']">First name is required</div>
       </div>
     </div>
 
     <div class="form-group">
-      <label>Last name:</label>
-      <input  class="form-control" formControlName="last_name" type="text" />
-      <!-- validation -->
-      <div *ngIf="myForm.get('last_name').invalid && (myForm.get('last_name').dirty || myForm.get('last_name').touched)" class="text-danger">
-        <div *ngIf="myForm.controls.last_name.hasError('required')">Last name is required.</div>
-        <div *ngIf="myForm.get('last_name').invalid">Invalid last name.</div>
-      </div>
+    <label for="last_name">Last Name:</label>
+    <input type="text" class="form-control" formControlName="last_name">
+    <div *ngIf="myForm.get('last_name').invalid && (myForm.get('last_name').dirty || myForm.get('last_name').touched)">
+      <div *ngIf="myForm.get('last_name').errors['required']">Last name is required.</div>
+      <div *ngIf="myForm.get('last_name').errors['minlength']">Last name must be at least 2 characters long.</div>
     </div>
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" class="form-control" formControlName="email">
+    <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)">
+      <div *ngIf="myForm.get('email').errors['required']">Email is required.</div>
+      <div *ngIf="myForm.get('email').errors['email']">Email is invalid.</div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="id_num">ID Number:</label>
+    <input type="number" class="form-control" formControlName="id_num">
+    <div *ngIf="myForm.get('id_num').invalid && (myForm.get('id_num').dirty || myForm.get('id_num').touched)">
+      <div *ngIf="myForm.get('id_num').errors['required']">ID number is required.</div>
+      <div *ngIf="myForm.get('id_num').errors['minlength']">ID number must be at least 9 digits long.</div>
+      <div *ngIf="myForm.get('id_num').errors['maxlength']">ID number cannot be more than 10 digits long.</div>
+    </div>
+  </div>
 
     <div class="form-group">
-      <label>Email:</label>
-      <input  class="form-control" formControlName="email" type="text"  />
-      <!-- validation -->
-      <div *ngIf="myForm.get('email').invalid && (myForm.get('email').dirty || myForm.get('email').touched)" class="text-danger">
-        <div *ngIf="myForm.controls.email.hasError('required')">Email is required.</div>
-        <div *ngIf="myForm.get('email').invalid">Invalid email.</div>
+      <label for="password">Password</label>
+      <input type="password" formControlName="password" class="form-control">
+      <div *ngIf="myForm.get('password').invalid && (myForm.get('password').dirty || myForm.get('password').touched)">
+        <div *ngIf="myForm.get('password').errors['required']">Password is required</div>
+        <div *ngIf="myForm.get('password').errors['minlength']">Password must be at least 8 characters long</div>
       </div>
     </div>
-
-      <div class="form-group">
-        <label>Id num:</label>
-        <input  class="form-control" formControlName="id_num" type="number" />
-        <!-- validation -->
-        <div *ngIf="myForm.get('id_num').invalid && (myForm.get('id_num').dirty || myForm.get('id_num').touched)" class="text-danger">
-          <div *ngIf="myForm.controls.id_num.hasError('required')">Id num is required.</div>
-          <div *ngIf="myForm.get('id_num').invalid">Invalid Id num.</div>
-        </div>
-      </div>
-
-      <label>Password:</label>
-      <input class="form-control" type="password" formControlName="password" />
-      <!-- validation -->
-      <div *ngIf="myForm.get('password').invalid && (myForm.get('password').dirty || myForm.get('password').touched)" class="text-danger">
-        <div *ngIf="myForm.controls.password.hasError('required')">Password is required.</div>
-        <div *ngIf="myForm.get('email').invalid">Invalid password.</div>
-        <div *ngIf="myForm.get('password').value.length">Password must be at least 8 characters.</div>
-      </div>
-
-    <label>City:</label>
-    <select class="form-select" formControlName="city">
-      <option value="">-- Select a city --</option>
-      <option *ngFor="let city of cities" [value]="city.id">{{city}}</option>
-    </select>
-    <!-- validation -->
-    <div *ngIf="myForm.get('city').invalid && (myForm.get('city').dirty || myForm.get('city').touched)" class="text-danger">
-      <div *ngIf="myForm.controls.city.hasError('required')">Please select an option</div>
-    </div><br/>
     
-    <label>street:</label>
-    <input class="form-control" type="text" formControlName="street" />
-    <!-- validation -->
-    <div *ngIf="myForm.get('street').invalid && (myForm.get('street').dirty || myForm.get('street').touched)" class="text-danger">
-      <div *ngIf="myForm.controls.street.hasError('required')">street is required.</div>
-      <div *ngIf="myForm.get('street').invalid">Invalid street.</div>
-      <div *ngIf="myForm.get('street').value.length">Password must be at least 3 characters.</div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" class="form-control">
+      <div *ngIf="myForm.get('confirmPassword').invalid && (myForm.get('confirmPassword').dirty || myForm.get('confirmPassword').touched)">
+        <div *ngIf="myForm.get('confirmPassword').errors['passwordMismatch']">Passwords do not match</div>
+      </div>
     </div>
 
-  <button class="btn btn-primary" [disabled]="myForm.invalid"> Register </button>
+    <div>
+      <label>Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" />
+      <div *ngIf="myForm.controls['confirmPassword'].invalid && (myForm.controls['confirmPassword'].dirty || myForm.controls['confirmPassword'].touched)">
+        <div *ngIf="myForm.controls['confirmPassword'].errors['required']">Confirmation password is required</div>
+        <div *ngIf="myForm.controls['confirmPassword'].hasError('passwordMismatch')">Passwords do not match</div>
+      </div>
+    </div>
 
+    <div class="form-group">
+      <label for="city">City</label>
+      <select formControlName="city" class="form-control">
+        <option value="">--Select a city--</option>
+        <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+      </select>
+      <div *ngIf="myForm.controls['city'].invalid && (myForm.controls['city'].dirty || myForm.controls['city'].touched)">
+        <small class="text-danger" *ngIf="myForm.controls['city'].errors['required']">
+          City is required
+        </small>
+      </div>
+    </div>
 
-</form>
-</div>
-
+    <div class="form-group">
+      <label for="street">Street:</label>
+      <input type="text" class="form-control" formControlName="street">
+      <div *ngIf="myForm.get('street').invalid && (myForm.get('street').dirty || myForm.get('street').touched)">
+        <div *ngIf="myForm.get('street').errors['required']">Last name is required.</div>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+  </form>
+ </div>
