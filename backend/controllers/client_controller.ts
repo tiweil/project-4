@@ -13,6 +13,14 @@ const register = async (request: Request, response: Response, next: NextFunction
     const client = request.body;
     const isAdmin=process.env.ADMINS.includes(client.email);
     client.role = isAdmin ? Role.admin : Role.client;
+    // Check if the client already exists in the database
+    const existingClient = await clientModel.findOne({ "email": client.email, "first_name": client.first_name  });
+    if (existingClient) {
+        // If the client already exists, return an error message
+        return response.status(400).json({ message: 'Client already exists' });
+    }
+
+    // If the client doesn't exist, create a new client object and save it to the database
     const newClient = new clientModel({
         _id:new mongoose.Types.ObjectId(),
         ...client,

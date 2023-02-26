@@ -54,20 +54,25 @@
       </div>
     </div>
 
-    <div>
-      <label>Confirm Password</label>
-      <input type="password" formControlName="confirmPassword" />
-      <div *ngIf="myForm.controls['confirmPassword'].invalid && (myForm.controls['confirmPassword'].dirty || myForm.controls['confirmPassword'].touched)">
-        <div *ngIf="myForm.controls['confirmPassword'].errors['required']">Confirmation password is required</div>
-        <div *ngIf="myForm.controls['confirmPassword'].hasError('passwordMismatch')">Passwords do not match</div>
-      </div>
-    </div>
-
-    <div class="form-group">
+    <!-- <div class="form-group">
       <label for="city">City</label>
       <select formControlName="city" class="form-control">
         <option value="">--Select a city--</option>
         <option *ngFor="let city of cities" [value]="city">{{city}}</option>
+      </select>
+      <div *ngIf="myForm.controls['city'].invalid && (myForm.controls['city'].dirty || myForm.controls['city'].touched)">
+        <small class="text-danger" *ngIf="myForm.controls['city'].errors['required']">
+          City is required
+        </small>
+      </div>
+    </div> -->
+
+    <div class="form-group">
+      <label for="city">City</label>
+  
+      <select formControlName="city" class="form-control" (change)="filterCities(myForm.controls['city'].value)">
+        <option value="">--Select a city--</option>
+        <option *ngFor="let city of filteredCities.length > 0 ? filteredCities : cities" [value]="city">{{city}}</option>
       </select>
       <div *ngIf="myForm.controls['city'].invalid && (myForm.controls['city'].dirty || myForm.controls['city'].touched)">
         <small class="text-danger" *ngIf="myForm.controls['city'].errors['required']">

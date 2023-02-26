@@ -61,6 +61,7 @@ const ClientSchema: Schema=new Schema<IClient>({
         // lowercase: [true,"PAssword should contains lowercase"],
         // uppercase:[true,""],
         //unique: true,
+        unique: false,
     },
     city:{
         type:String,

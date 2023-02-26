@@ -11,9 +11,11 @@ import { LoginService } from 'src/app/services/login.service';
 })
 
 export class RegisterComponent implements OnInit {
+
   public newClient = new ClientModel();
   public myCountry:string = "israel";
   public cities: any[];
+  public filteredCities: string[] = [];
   public myForm: FormGroup;
 
 constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router:Router ) {
@@ -38,6 +40,14 @@ public async ngOnInit() {
   const password = formGroup.get('password').value;
   const confirmPassword = formGroup.get('confirmPassword').value;
   return password === confirmPassword ? null : { passwordMismatch: true };
+}
+
+public filterCities(searchText: any): void {
+  console.log(searchText);
+
+  this.filteredCities = this.cities.filter(city => city.toLowerCase().includes(searchText.toLowerCase()));
+  console.log(this.filteredCities);
+  
 }
 
 public async send() {
