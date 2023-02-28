@@ -4,7 +4,6 @@ import { firstValueFrom } from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
 import { ProductModel } from '../models/product.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +11,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
+    //get all products
     public async getAllProducts(): Promise<ProductModel[]> {
       // get the observable
     const observable = this.http.get<ProductModel[]>(appConfig.productsUrl); 
@@ -20,5 +20,13 @@ export class ProductService {
     
     return products;
     }
+
+    //delete product
+    public async deleteProduct(id: number): Promise<void> {
+      console.log("id:"+id);
+      const observable = this.http.delete(appConfig.deleteProductUrl + id);
+      await firstValueFrom(observable);
+    }
+
 }
 

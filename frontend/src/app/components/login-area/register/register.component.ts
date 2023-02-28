@@ -77,7 +77,8 @@ public async send() {
 this.router.navigateByUrl("/products");
 }
 catch(err:any){
-  console.log(err)
+  console.log(err);
+  alert(`you already register befor`);
 }
 }
 
