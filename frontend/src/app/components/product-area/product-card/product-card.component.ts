@@ -14,7 +14,7 @@ export class ProductCardComponent {
 
 //create new event
 @Output()
-public addMe = new EventEmitter<ProductModel>();
+public addItem = new EventEmitter<ProductModel>();
 @Output()
 public deleteMe = new EventEmitter<number>();
 
@@ -22,7 +22,7 @@ public deleteMe = new EventEmitter<number>();
 //report to father what you sent him
 //בלחיצה על הכפתורת יעלה ארוע דליטמי
 public async addToCart() {
-  this.addMe.emit(this.product);
+  this.addItem.emit(this.product);
 }
 public async deleteProduct() {
   this.deleteMe.emit(this.product._id);

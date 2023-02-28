@@ -3,5 +3,5 @@ export class ItemModel {
     productId:string;
     qty:number;
     total_price:number;
-    // cartId:string;
+    cartId:string;
 }

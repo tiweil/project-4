@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, firstValueFrom} from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
 import { ClientModel } from 'src/app/models/client.model';
+import { CartModel } from '../models/cart.model';
+import { AuthActionType, clientStore } from '../redux/login-state';
 
 @Injectable({
   providedIn: 'root'
@@ -20,19 +22,36 @@ export class LoginService {
     //convert to promise
   const isClient = await firstValueFrom(observable);
 
+  // Send token to global state:
+  //clientStore.dispatch({ type: AuthActionType.Login, payload: isClient });
+
   return isClient;
   }
 
   //register
   public async register(newClient: ClientModel): Promise<ClientModel> {
-    //const formData = { ...newClient };
-    //delete formData.confirmPassword;
     console.log(newClient);
     const observable = this.http.post<ClientModel>(appConfig.registerUrl, newClient);
-
     const addClient = await firstValueFrom(observable);
+    await this.addCart(addClient._id);
+    // Send token to global state:
+    //clientStore.dispatch({ type: AuthActionType.Register, payload: addClient });
 
     return addClient;
+  }
+
+  //add new cart when add new client
+  public async addCart(_id: string): Promise<void>{
+    const newCart  = new CartModel(); 
+    // newCart.append("clientId", id_num);
+    // newCart.append("created", new Date().getDate());
+    newCart.clientId = _id;
+    // newCart.created = new Date(Date.now()).toLocaleString().split('-')[0];
+    newCart.created = new Date().toISOString();
+    //toLocaleDateString();
+    console.log(newCart);
+    const observable = this.http.post<CartModel>(appConfig.addCartUrl, newCart);
+    await firstValueFrom(observable);
   }
 
   //list cities

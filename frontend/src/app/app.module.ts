@@ -13,7 +13,6 @@ import { CartComponent } from './components/cart-area/cart/cart.component';
 import { OrderComponent } from './components/order-area/order/order.component';
 import { ProductCardComponent } from './components/product-area/product-card/product-card.component';
 import { HttpClientModule } from '@angular/common/http';
-import { CartProductsComponent } from './components/cart-area/cart-products/cart-products.component';
 import { EmptyCartComponent } from './components/cart-area/empty-cart/empty-cart.component';
 import { UpdateCartComponent } from './components/cart-area/update-cart/update-cart.component';
 import { LoginComponent } from './components/login-area/login/login.component';
@@ -21,6 +20,7 @@ import { ContactUsComponent } from './components/about-area/contact-us/contact-u
 import { FooterComponent } from './components/layout-area/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/login-area/register/register.component';
+import { ItemsCartComponent } from './components/cart-area/items-cart/items-cart.component';
 
 @NgModule({
   declarations: [
@@ -35,13 +35,13 @@ import { RegisterComponent } from './components/login-area/register/register.com
     CartComponent,
     OrderComponent,
     ProductCardComponent,
-    CartProductsComponent,
     EmptyCartComponent,
     UpdateCartComponent,
     LoginComponent,
     ContactUsComponent,
     FooterComponent,
     RegisterComponent,
+    ItemsCartComponent,
 
   ],
   imports: [
