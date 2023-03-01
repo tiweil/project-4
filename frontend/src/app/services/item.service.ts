@@ -20,9 +20,9 @@ public async AddItemToCart(item:ItemModel): Promise<ItemModel> {
     return addItem;
 }
 
-public async itemsByCart(): Promise<ItemModel[]> {
+public async itemsByCart(cartId: string): Promise<ItemModel[]> {
     // get the observable
-  const observable = this.http.get<ItemModel[]>(appConfig.productsUrl); 
+  const observable = this.http.get<ItemModel[]>(appConfig.itemsByCart + cartId); 
     //convert to promise
   const products = await firstValueFrom(observable);
   

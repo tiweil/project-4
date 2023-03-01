@@ -21,6 +21,7 @@ import { FooterComponent } from './components/layout-area/footer/footer.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/login-area/register/register.component';
 import { ItemsCartComponent } from './components/cart-area/items-cart/items-cart.component';
+import { LoginMenuComponent } from './components/login-area/login-menu/login-menu.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ItemsCartComponent } from './components/cart-area/items-cart/items-cart
     FooterComponent,
     RegisterComponent,
     ItemsCartComponent,
+    LoginMenuComponent,
 
   ],
   imports: [

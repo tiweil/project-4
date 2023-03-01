@@ -22,11 +22,23 @@ export class LoginService {
     //convert to promise
   const isClient = await firstValueFrom(observable);
 
-  // Send token to global state:
-  //clientStore.dispatch({ type: AuthActionType.Login, payload: isClient });
+  await this.findCart(isClient._id);
+    // Send client to global state:
+  clientStore.dispatch({ type: AuthActionType.Login, payload: isClient });
 
   return isClient;
   }
+
+    //find cart by id client
+    public async findCart(_id: string): Promise<void>{
+      
+      const observable = this.http.get<CartModel>(appConfig.findCartUrl + _id);
+      
+      const addCart = await firstValueFrom(observable);
+      localStorage.setItem("cart", addCart._id);
+      // Send car to global state:
+      clientStore.dispatch({ type: AuthActionType.myCart, payload: addCart });
+    }
 
   //register
   public async register(newClient: ClientModel): Promise<ClientModel> {
@@ -34,8 +46,8 @@ export class LoginService {
     const observable = this.http.post<ClientModel>(appConfig.registerUrl, newClient);
     const addClient = await firstValueFrom(observable);
     await this.addCart(addClient._id);
-    // Send token to global state:
-    //clientStore.dispatch({ type: AuthActionType.Register, payload: addClient });
+    // Send client to global state:
+    clientStore.dispatch({ type: AuthActionType.Register, payload: addClient });
 
     return addClient;
   }
@@ -43,15 +55,18 @@ export class LoginService {
   //add new cart when add new client
   public async addCart(_id: string): Promise<void>{
     const newCart  = new CartModel(); 
-    // newCart.append("clientId", id_num);
-    // newCart.append("created", new Date().getDate());
     newCart.clientId = _id;
-    // newCart.created = new Date(Date.now()).toLocaleString().split('-')[0];
-    newCart.created = new Date().toISOString();
-    //toLocaleDateString();
+    newCart.created = new Date().toISOString();//or- toLocaleDateString();
     console.log(newCart);
     const observable = this.http.post<CartModel>(appConfig.addCartUrl, newCart);
-    await firstValueFrom(observable);
+    const addCart = await firstValueFrom(observable);
+    // Send car to global state:
+    clientStore.dispatch({ type: AuthActionType.myCart, payload: addCart });
+  }
+
+    // Logout:
+    public logout(): void {
+      clientStore.dispatch({ type: AuthActionType.Logout });
   }
 
   //list cities

@@ -1,24 +1,25 @@
-import jwtDecode from "jwt-decode";
 import { createStore } from "redux";
+import { CartModel } from "../models/cart.model";
 import { ClientModel } from "../models/client.model";
 
 // 1. Global State
 export class AuthState {
-    public token: string = null;
-    public user: ClientModel = null;
+    public client: ClientModel = null;
+    public cart: CartModel = null;
 }
 
 // 2. Action Type
 export enum AuthActionType {
     Register = "Register",
     Login = "Login",
-    Logout = "Logout"
+    Logout = "Logout",
+    myCart = "myCart"
 }
 
 // 3. Action
 export interface AuthAction {
     type: AuthActionType;
-    payload?: string; // the string is because we're getting a token, the ? is because logout sends nothing.
+    payload?: any;
 }
 
 // 4. Reducer
@@ -28,18 +29,24 @@ export function clientReducer(currentState = new AuthState(), action: AuthAction
 
     switch (action.type) {
 
-        case AuthActionType.Register: // Here the payload is the token (string)
+        case AuthActionType.Register: 
         case AuthActionType.Login:
-            newState.token = action.payload;
-            const userContainer = jwtDecode<{ user: ClientModel }>(newState.token);
-            newState.user = userContainer.user;
+            newState.client = action.payload;
+            console.log(action.payload);
+            localStorage.setItem("email", JSON.stringify(newState.client));
             break;
 
         case AuthActionType.Logout:
-            newState.token = null;
-            newState.user = null;
+            newState.client = null;
+            localStorage.removeItem("email");
+            //localStorage.removeItem("cart");
             break;
 
+        case AuthActionType.myCart:
+            newState.cart = action.payload;
+            //localStorage.setItem("cart", newState.cart._id);
+            console.log(newState.cart)
+            break;
     }
 
     return newState;

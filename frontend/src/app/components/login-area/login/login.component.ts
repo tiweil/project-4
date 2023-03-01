@@ -28,8 +28,7 @@ export class LoginComponent {
     console.log(this.existsClient);
     try {
       const isClient = await this.loginService.login(this.existsClient);
-      console.log(isClient);
-      switch(isClient.role){
+      switch(isClient.role) {
 
         case 1:
           alert(`welcome admin ${isClient.first_name}`);
@@ -42,7 +41,7 @@ export class LoginComponent {
           break;
       }
     } catch (err:any) {
-      alert("Did you signed before? please register here");
+      alert("Did you signed before? please register here or maybe one of the failed is wrong");
     }
   }
 
