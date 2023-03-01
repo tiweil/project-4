@@ -1,5 +1,4 @@
 import { Component, OnInit  } from '@angular/core';
-import { async } from 'rxjs';
 import { CartModel } from 'src/app/models/cart.model';
 import { ClientModel } from 'src/app/models/client.model';
 import { ItemModel } from 'src/app/models/item.model';
@@ -22,19 +21,23 @@ constructor(private itemService: ItemService, private loginService: LoginService
 
 public async ngOnInit() {
 
+ 
 }
+  
+
 public async itemToCart() {
+console.log(this.myCart);
 try {
-  console.log("work");
   this.client = clientStore.getState().client;
   this.myCart = clientStore.getState().cart;
-  //listening to changes
-  clientStore.subscribe(() => {
-    this.client = clientStore.getState().client;
+//listening to changes
+clientStore.subscribe(() => {
+  this.client = clientStore.getState().client;
+  this.myCart = clientStore.getState().cart;
   })
-  this.items = await this.itemService.itemsByCart(this.client._id);
+this.items = await this.itemService.itemsByCart(this.myCart._id);
   console.log(this.items);
-} catch (error) {
+  } catch (error) {
   console.log(error);
 }
 }

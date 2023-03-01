@@ -1,2 +1,14 @@
 <p>items-cart works!</p>
 <button (click)="itemToCart()">show my items</button>
+
+<div *ngIf="!myCart">
+
+    <app-empty-cart></app-empty-cart>
+
+</div>
+
+<div *ngIf="myCart">
+    
+    <app-cart *ngFor="let i of items" [item]="i" ></app-cart>
+    
+</div>

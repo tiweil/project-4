@@ -1,4 +1,5 @@
-import { Component} from '@angular/core';
+import { Component, Input} from '@angular/core';
+import { ItemModel } from 'src/app/models/item.model';
 
 
 @Component({
@@ -7,6 +8,12 @@ import { Component} from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent  {
+  public selectQty: number;
+
+@Input()
+public item: ItemModel;
+
+
 
 
 

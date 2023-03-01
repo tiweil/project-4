@@ -43,7 +43,7 @@ export function clientReducer(currentState = new AuthState(), action: AuthAction
             break;
 
         case AuthActionType.myCart:
-            newState.cart = action.payload;
+            newState.cart = action.payload[0];
             //localStorage.setItem("cart", newState.cart._id);
             console.log(newState.cart)
             break;
