@@ -16,7 +16,7 @@ export class ProductCardComponent {
 @Output()
 public addItem = new EventEmitter<ProductModel>();
 @Output()
-public deleteMe = new EventEmitter<number>();
+public deleteMe = new EventEmitter<string>();
 
 
 //report to father what you sent him

@@ -22,7 +22,7 @@ export class ProductListComponent implements OnInit{
       alert(err);
     }
   }
-  public async deleteProduct(id: number) {
+  public async deleteProduct(id: string) {
     console.log(id);
     try {
       if(!window.confirm("Are you sure?")) return;

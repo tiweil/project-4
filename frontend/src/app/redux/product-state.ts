@@ -11,7 +11,8 @@ export class ProductState {
 export enum ProductActionType {
     AllProducts = "AllProducts",
     AddProduct = "AddProduct",
-    DeleteProduct = "DeleteProduct"
+    DeleteProduct = "DeleteProduct",
+    SingleProduct = "SingleProduct"
 }
 
 //3. Action
@@ -27,8 +28,9 @@ export function productsReducer(currentState = new ProductState(), action:Produc
     
     switch(action.type) {
 
-        case ProductActionType.AllProducts://the payload here is the list of product
+        case ProductActionType.AllProducts://the payload here is the arry list of product
         newState.products = action.payload;
+        console.log(action.payload);
         break;
     
         case ProductActionType.AddProduct: //the paylod here is a new product
@@ -42,6 +44,12 @@ export function productsReducer(currentState = new ProductState(), action:Produc
             if(indexToDelete >=0) {
                 newState.products.splice(indexToDelete, 1);
             }
+            break;
+
+            case ProductActionType.SingleProduct://the payload here is the single product by id
+            //newState.products.filter(p => p !== action.payload);
+            newState.products[0] = action.payload;
+            console.log(newState.products);
             break;
    }
     return newState;
