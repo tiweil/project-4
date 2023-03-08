@@ -78,7 +78,7 @@ this.router.navigateByUrl("/products");
 }
 catch(err:any){
   console.log(err);
-  alert(`you already register before`);
+  alert(err);
 }
 }
 

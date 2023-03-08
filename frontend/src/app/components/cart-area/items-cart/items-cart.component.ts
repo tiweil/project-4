@@ -24,7 +24,7 @@ public async ngOnInit() {
 
 }
 
-
+public productItem: string;
 public async itemToCart() {
 try {
   //this.client = clientStore.getState().client;
@@ -35,7 +35,9 @@ clientStore.subscribe(() => {
   this.myCart = clientStore.getState().cart;
   })
 this.items = await this.itemService.itemsByCart(this.myCart._id);
-  console.log(this.items);
+
+this.productItem = this.items[0].productId;
+  console.log(this.items[0].productId);
   } catch (error) {
   console.log(error);
 }
