@@ -24,18 +24,22 @@ public singleProduct: ProductModel[];
 constructor(private productService: ProductService) {
   console.log(this.product);
   console.log(this.item);
+  this.productService.getAllProducts();
+  this.products = productsStore.getState().products;
+  console.log("all products"+this.products);
   //this.singleProduct = this.products.filter(p =>{ });
   //this.nameProduct = this.singleProduct[0].name;
 }
 public async ngOnInit() {
+  this.productService.getAllProducts();
   this.products = productsStore.getState().products;
   //console.log("all products"+this.products[0]);
 
   this.item.qty = 1;
 }
 public onQuantityChange() {
-  this.products = productsStore.getState().products;
-  console.log("all products"+this.products[0]);
+  //this.products = productsStore.getState().products;
+ // console.log("all products"+this.products[0]);
 
 
   this.item.total_price = this.item.qty*this.singleProduct[0].price;

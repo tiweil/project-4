@@ -1,7 +1,7 @@
 export class ProductModel {
-    public _id: string;
+    public _id?: string;
     public name: string;
+    public categoryId: string;
     public price: number;
-    public imageName: string;
-    public image?: File;
+    public image: string;
 }

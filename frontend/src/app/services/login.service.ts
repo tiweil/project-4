@@ -57,7 +57,7 @@ export class LoginService {
     const newCart  = new CartModel(); 
     newCart.clientId = _id;
     newCart.created = new Date().toISOString();//or- toLocaleDateString();
-    console.log(newCart);
+    //console.log(newCart);
     const observable = this.http.post<CartModel>(appConfig.addCartUrl, newCart);
     const addCart = await firstValueFrom(observable);
     // Send car to global state:

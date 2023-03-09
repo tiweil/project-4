@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { appConfig } from 'src/utils/app-config';
 import { ProductModel } from '../models/product.model';
 import { ProductActionType, productsStore } from '../redux/product-state';
+import { CategoryModel } from '../models/category.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,12 +33,12 @@ export class ProductService {
     public async getProductById(id:string): Promise<ProductModel> {
   
       // get the observable
-      const observable = this.http.get<ProductModel>(appConfig.getProductById + id); 
+      const observable = this.http.get<ProductModel>(appConfig.getProductByIdUrl + id); 
       //convert to promise
       const product = await firstValueFrom(observable);
 
       //save product to global store- redux
-      productsStore.dispatch({ type: ProductActionType.SingleProduct, payload: product })
+      //productsStore.dispatch({ type: ProductActionType.SingleProduct, payload: product })
     
     return product;
     }
@@ -51,6 +52,24 @@ export class ProductService {
       productsStore.dispatch({ type: ProductActionType.DeleteProduct, payload: id })
     }
 
+       //add product
+      public async addProduct(product: ProductModel): Promise<void> {
+        const observable = this.http.post<ProductModel>(appConfig.addProductUrl , product);
+        await firstValueFrom(observable);
+        //add product to global state
+        productsStore.dispatch({ type: ProductActionType.AddProduct, payload: product })
+      }
+
+    //get all category
+    public async getAllCategory(): Promise<CategoryModel[]> {
+
+    // get the observable
+    const observable = this.http.get<CategoryModel[]>(appConfig.getAllCategoryUrl); 
+    //convert to promise
+    const categories = await firstValueFrom(observable);
+
+  return categories;
+  }
 
 }
 

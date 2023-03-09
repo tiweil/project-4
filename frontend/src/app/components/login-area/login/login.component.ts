@@ -25,7 +25,7 @@ export class LoginComponent {
   public async send() {
     this.existsClient.email = this.myForm.get('email').value;
     this.existsClient.password=this.myForm.get('password').value;
-    console.log(this.existsClient);
+    //console.log(this.existsClient);
     try {
       const isClient = await this.loginService.login(this.existsClient);
       switch(isClient.role) {

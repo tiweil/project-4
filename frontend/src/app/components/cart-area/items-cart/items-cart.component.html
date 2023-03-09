@@ -1,3 +1,4 @@
+<div class="scroll">
 <p>items-cart works!</p>
 <button (click)="itemToCart()">show my items</button>
 
@@ -11,4 +12,5 @@
     
     <app-cart *ngFor="let i of items" [item]="i" [product]="i.productId" ></app-cart>
     
+</div>
 </div>

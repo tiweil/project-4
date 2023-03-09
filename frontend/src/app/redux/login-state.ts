@@ -32,19 +32,19 @@ export function clientReducer(currentState = new AuthState(), action: AuthAction
         case AuthActionType.Register: 
         case AuthActionType.Login:
             newState.client = action.payload;
-            console.log(action.payload);
+            //console.log(action.payload);
             localStorage.setItem("email", JSON.stringify(newState.client));
             break;
 
         case AuthActionType.Logout:
             newState.client = null;
             localStorage.removeItem("email");
-            //localStorage.removeItem("cart");
+            localStorage.removeItem("cart");
             break;
 
         case AuthActionType.myCart:
             newState.cart = action.payload[0];
-            //localStorage.setItem("cart", newState.cart._id);
+            localStorage.setItem("cart", newState.cart._id);
             console.log(newState.cart)
             break;
     }

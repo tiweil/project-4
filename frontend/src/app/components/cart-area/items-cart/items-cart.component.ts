@@ -6,6 +6,7 @@ import { ProductModel } from 'src/app/models/product.model';
 import { clientStore } from 'src/app/redux/login-state';
 import { ItemService } from 'src/app/services/item.service';
 import { LoginService } from 'src/app/services/login.service';
+import { ProductService } from 'src/app/services/product.service';
 @Component({
   selector: 'app-items-cart',
   templateUrl: './items-cart.component.html',
@@ -17,7 +18,7 @@ public client: ClientModel;
 public myCart: CartModel;
 public items: ItemModel[];
 
-constructor(private itemService: ItemService, private loginService: LoginService) {}
+constructor(private itemService: ItemService) {}
 
 
 public async ngOnInit() {
@@ -27,20 +28,19 @@ public async ngOnInit() {
 public productItem: string;
 public async itemToCart() {
 try {
-  //this.client = clientStore.getState().client;
   this.myCart = clientStore.getState().cart;
-//listening to changes
-clientStore.subscribe(() => {
-  //this.client = clientStore.getState().client;
-  this.myCart = clientStore.getState().cart;
+  //listening to changes
+  clientStore.subscribe(() => {
+    this.myCart = clientStore.getState().cart;
   })
-this.items = await this.itemService.itemsByCart(this.myCart._id);
-
+  this.items = await this.itemService.itemsByCart(this.myCart._id);
+  console.log(this.items);
 this.productItem = this.items[0].productId;
   console.log(this.items[0].productId);
   } catch (error) {
   console.log(error);
 }
 }
+
 }
 
