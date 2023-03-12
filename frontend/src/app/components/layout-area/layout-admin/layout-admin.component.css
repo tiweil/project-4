@@ -2,12 +2,13 @@ div {
     height: 100%;
     box-sizing: border-box;
     display:grid;
-    grid-template-rows: 20% 80%;
+    grid-template-rows: 10% 90%;
     grid-template-columns: repeat(6, 1fr);
 }
 
 header{
     grid-column: span 6;
+    margin-top: 10px;
 }
 
 main {

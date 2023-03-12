@@ -23,6 +23,7 @@ import { LoginMenuComponent } from './components/login-area/login-menu/login-men
 import { LayoutAdminComponent } from './components/layout-area/layout-admin/layout-admin.component';
 import { MenuAdminComponent } from './components/layout-area/menu-admin/menu-admin.component';
 import { LoginMainComponent } from './components/login-area/login-main/login-main.component';
+import { MainComponent } from './components/login-area/main/main.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LoginMainComponent } from './components/login-area/login-main/login-mai
     LoginMenuComponent,
     LayoutAdminComponent,
     MenuAdminComponent,
-    LoginMainComponent
+    LoginMainComponent,
+    MainComponent
 
   ],
   imports: [
