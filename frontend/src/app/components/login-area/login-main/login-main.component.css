@@ -1,0 +1,23 @@
+div {
+    height: 100%;
+    box-sizing: border-box;
+    display:grid;
+    grid-template-rows: 20% 80%;
+    grid-template-columns: repeat(6, 1fr);
+}
+
+header{
+    grid-column: span 6;
+}
+
+main {
+    grid-column: span 5;
+    overflow: auto;
+}
+
+div, div > * {
+    border: 1px solid;
+}
+h1 {
+    margin-top: 10px;
+}

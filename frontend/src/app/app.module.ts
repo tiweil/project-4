@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { LayoutComponent } from './components/layout-area/layout/layout.component';
 import { HeaderComponent } from './components/layout-area/header/header.component';
-import { MenuComponent } from './components/layout-area/menu/menu.component';
 import { ProductListComponent } from './components/product-area/product-list/product-list.component';
 import { AboutComponent } from './components/about-area/about/about.component';
 import { PageNotFoundComponent } from './components/layout-area/page-not-found/page-not-found.component';
@@ -22,12 +20,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/login-area/register/register.component';
 import { ItemsCartComponent } from './components/cart-area/items-cart/items-cart.component';
 import { LoginMenuComponent } from './components/login-area/login-menu/login-menu.component';
+import { LayoutAdminComponent } from './components/layout-area/layout-admin/layout-admin.component';
+import { MenuAdminComponent } from './components/layout-area/menu-admin/menu-admin.component';
+import { LoginMainComponent } from './components/login-area/login-main/login-main.component';
 
 @NgModule({
   declarations: [
-    LayoutComponent,
     HeaderComponent,
-    MenuComponent,
     ProductListComponent,
     AboutComponent,
     PageNotFoundComponent,
@@ -44,6 +43,9 @@ import { LoginMenuComponent } from './components/login-area/login-menu/login-men
     RegisterComponent,
     ItemsCartComponent,
     LoginMenuComponent,
+    LayoutAdminComponent,
+    MenuAdminComponent,
+    LoginMainComponent
 
   ],
   imports: [
@@ -54,6 +56,6 @@ import { LoginMenuComponent } from './components/login-area/login-menu/login-men
     ReactiveFormsModule
   ],
   providers: [],
-  bootstrap: [LayoutComponent]
+  bootstrap: [LoginMainComponent]
 })
 export class AppModule { }

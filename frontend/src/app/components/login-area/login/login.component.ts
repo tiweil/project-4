@@ -13,7 +13,6 @@ export class LoginComponent {
 
   public existsClient = new ClientModel();
 
-  public clientName : string="hi";
 
   public myForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -32,16 +31,19 @@ export class LoginComponent {
 
         case 1:
           alert(`welcome admin ${isClient.first_name}`);
-          this.router.navigateByUrl("/products/new");
+          //ליוט אדמין
+          this.router.navigateByUrl("/layout-admin");
           break;
 
         case 2:
           alert(`welcome back ${isClient.first_name}! enjoy shopping`);
-            this.router.navigateByUrl("/products");
+            //תרצה תוסיך מעבר לליוט של לקוח
+          this.router.navigateByUrl("/products");
           break;
       }
     } catch (err:any) {
       alert("Did you signed before? please register here or maybe one of the failed is wrong");
+      console.log(err.message);
     }
   }
 

@@ -72,17 +72,15 @@ public async send() {
   this.newClient.street = formData.street;
   console.log(this.newClient);
   try{
-  await this.loginService.register(this.newClient);
-  alert(`welcome ${this.newClient.first_name}!`);
-this.router.navigateByUrl("/products");
+    await this.loginService.register(this.newClient);
+    alert(`welcome ${this.newClient.first_name}!`);
+    this.router.navigateByUrl("/products");
+  }
+  catch(err:any){
+    console.log(err);
+    alert(err);
+  }
 }
-catch(err:any){
-  console.log(err);
-  alert(err);
-}
-}
-
-
 
 }
 
