@@ -24,7 +24,7 @@ export class MenuUserComponent implements OnInit {
     try {
       this.products = await this.productService.getAllProducts();
 
-      // this.categories=await this.productService.getAllCategory();
+      //this.categories=await this.productService.getAllCategory();
     } catch (err) {
       alert(err);
     }
