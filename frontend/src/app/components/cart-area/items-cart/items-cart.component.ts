@@ -1,4 +1,5 @@
 import { Component, OnInit  } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartModel } from 'src/app/models/cart.model';
 import { ClientModel } from 'src/app/models/client.model';
 import { ItemModel } from 'src/app/models/item.model';
@@ -13,13 +14,15 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./items-cart.component.css']
 })
 export class ItemsCartComponent implements OnInit {
-  
+
 public client: ClientModel;
 public myCart: CartModel;
 public items: ItemModel[];
 
-constructor(private itemService: ItemService) {}
-
+constructor(private itemService: ItemService,private router: Router) {}
+public toOrderPage(){
+  this.router.navigateByUrl("/order");
+}
 
 public async ngOnInit() {
 

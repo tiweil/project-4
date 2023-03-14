@@ -37,8 +37,8 @@ export class LoginComponent {
 
         case 2:
           alert(`welcome back ${isClient.first_name}! enjoy shopping`);
-            //תרצה תוסיך מעבר לליוט של לקוח
-          this.router.navigateByUrl("/products");
+            //layout-user
+          this.router.navigateByUrl("/layout-user");
           break;
       }
     } catch (err:any) {

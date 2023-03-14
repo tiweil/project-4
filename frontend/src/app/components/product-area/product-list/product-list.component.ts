@@ -35,23 +35,5 @@ export class ProductListComponent implements OnInit{
       alert(err);
     }
   }
-  public newItem: ItemModel;
-public async addToCart(product: ProductModel) {
-  console.log(product);
-  this.newItem={productId:product._id,
-                qty:1,
-                total_price:product.price,
-                cartId:clientStore.getState().cart._id
-  }
-  console.log( this.newItem);
 
-  try {
-    if(!window.confirm("Are you sure?")) return;
-    await this.itemService.AddItemToCart(this.newItem);
-    alert("Product has been add to your cart");
-  } catch (err) {
-    alert(err);
-  }
-}
-  
 }

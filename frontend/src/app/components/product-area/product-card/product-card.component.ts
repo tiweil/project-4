@@ -14,16 +14,11 @@ export class ProductCardComponent {
 
 //create new event
 @Output()
-public addItem = new EventEmitter<ProductModel>();
-@Output()
 public deleteMe = new EventEmitter<string>();
 
 
 //report to father what you sent him
-//בלחיצה על הכפתורת יעלה ארוע דליטמי
-public async addToCart() {
-  this.addItem.emit(this.product);
-}
+//בלחיצה על הכפתורת יעלה ארוע 
 public async deleteProduct() {
   this.deleteMe.emit(this.product._id);
 }

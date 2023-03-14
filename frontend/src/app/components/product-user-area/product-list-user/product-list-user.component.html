@@ -1,0 +1,7 @@
+
+
+<div class="scroll">
+<app-product-card-user *ngFor="let p of products" [product]="p"  (addItem)="addToCart(p)"></app-product-card-user>
+<div *ngIf="!isExist">"Item doesn't exist"</div>
+
+</div>

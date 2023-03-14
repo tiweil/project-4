@@ -1,0 +1,17 @@
+.order-container{
+  position:relative;
+}
+.order-details{
+  position: absolute;
+  left: 0;
+  border: 2px 2px 2px black;
+  width:40%;
+  padding:10px;
+}
+.order-process{
+  position: absolute;
+  right: 0;
+  border: 2px black;
+  width:40%;
+  padding:10px;
+}

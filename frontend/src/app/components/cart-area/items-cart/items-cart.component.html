@@ -9,8 +9,8 @@
 </div>
 
 <div *ngIf="myCart">
-    
+
     <app-cart *ngFor="let i of items" [item]="i" [product]="i.productId" ></app-cart>
-    
+    <button (click)="toOrderPage()">order</button>
 </div>
 </div>

@@ -1,0 +1,43 @@
+<h4>Order</h4><hr/>
+<div class="box">
+  <h5>Shipping Details:</h5><hr/>
+  <form [formGroup]="myForm" (ngSubmit)="send()">
+
+    <div class="form-group">
+      <label for="city">City</label>
+
+      <select formControlName="city" class="form-control" (change)="filterCities(myForm.controls['city'].value)">
+        <option value="">--Select a city--</option>
+        <option *ngFor="let city of filteredCities.length > 0 ? filteredCities : cities" [value]="city">{{city}}</option>
+      </select>
+      <div *ngIf="myForm.controls['city'].invalid && (myForm.controls['city'].dirty || myForm.controls['city'].touched)">
+        <small class="text-danger" *ngIf="myForm.controls['city'].errors['required']">
+          City is required
+        </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="street">Street:</label>
+      <input type="text" class="form-control" formControlName="street">
+      <div *ngIf="myForm.get('street').invalid && (myForm.get('street').dirty || myForm.get('street').touched)">
+        <div *ngIf="myForm.get('street').errors['required']">Last name is required.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="date">Date:</label>
+      <input type="date" class="form-control" formControlName="date">
+    </div><br/>
+
+    <h5>Payments:</h5><hr/>
+    <div class="form-group">
+      <label for="credit">Credit Card:</label>
+      <input type="text" class="form-control" formControlName="credit">
+    </div><br/>
+    <br/>
+
+
+    <button type="submit" class="btn btn-primary" [disabled]="myForm.invalid">Submit</button>
+  </form>
+ </div>

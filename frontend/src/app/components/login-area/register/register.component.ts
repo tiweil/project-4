@@ -34,9 +34,9 @@ this.myForm = this.formBuilder.group({
 public async ngOnInit() {
   this.cities = await this.loginService.getCities(this.myCountry);
   }
-  
+
  // custom validator to check if password and confirmPassword fields match
- passwordMatchValidator(formGroup: FormGroup) {
+passwordMatchValidator(formGroup: FormGroup) {
   const password = formGroup.get('password').value;
   const confirmPassword = formGroup.get('confirmPassword').value;
   return password === confirmPassword ? null : { passwordMismatch: true };
@@ -47,7 +47,7 @@ public filterCities(searchText: any): void {
 
   this.filteredCities = this.cities.filter(city => city.toLowerCase().includes(searchText.toLowerCase()));
   console.log(this.filteredCities);
-  
+
 }
 
 public async send() {

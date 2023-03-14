@@ -24,6 +24,19 @@ import { LayoutAdminComponent } from './components/layout-area/layout-admin/layo
 import { MenuAdminComponent } from './components/layout-area/menu-admin/menu-admin.component';
 import { LoginMainComponent } from './components/login-area/login-main/login-main.component';
 import { MainComponent } from './components/login-area/main/main.component';
+import { LayoutUserComponent } from './components/layout-area/layout-user/layout-user.component';
+import { MenuUserComponent } from './components/layout-area/menu-user/menu-user.component';
+import { HeaderUserComponent } from './components/layout-area/header-user/header-user.component';
+import { ProductCardUserComponent } from './components/product-user-area/product-card-user/product-card-user.component';
+import { ProductListUserComponent } from './components/product-user-area/product-list-user/product-list-user.component';
+import { OrderDetailsComponent } from './components/order-area/order-details/order-details.component';
+import { OrderProcessComponent } from './components/order-area/order-process/order-process.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldControl, MatFormFieldModule} from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
+
 
 @NgModule({
   declarations: [
@@ -47,15 +60,29 @@ import { MainComponent } from './components/login-area/main/main.component';
     LayoutAdminComponent,
     MenuAdminComponent,
     LoginMainComponent,
-    MainComponent
+    MainComponent,
+    LayoutUserComponent,
+    MenuUserComponent,
+    HeaderUserComponent,
+    ProductCardUserComponent,
+    ProductListUserComponent,
+    OrderDetailsComponent,
+    OrderProcessComponent
 
   ],
   imports: [
     BrowserModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatInputModule,
     AppRoutingModule,
     FormsModule,//Two way binding
     HttpClientModule, //http
-    ReactiveFormsModule
+    ReactiveFormsModule, BrowserAnimationsModule
+  ],
+  exports: [
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [LoginMainComponent]

@@ -8,6 +8,7 @@ div {
 
 header{
     grid-column: span 6;
+    background-color: deepskyblue;
 }
 
 main {

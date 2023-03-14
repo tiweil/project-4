@@ -29,4 +29,11 @@ public async itemsByCart(cartId: string): Promise<ItemModel[]> {
   return products;
   }
 
+  //delete item
+  public async deleteItem(id: string): Promise<void> {
+  console.log("id:"+id);
+  const observable = this.http.delete(appConfig.deleteItemUrl + id);
+  await firstValueFrom(observable);
+  }
+
 }

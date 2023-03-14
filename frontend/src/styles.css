@@ -2,7 +2,7 @@ html, body{
     height: 100%;
     text-align:center;
     margin:0;
-    background-image: linear-gradient(burlywood, brown);
+    /* background-image: linear-gradient(burlywood, brown); */
     color: black;
 }
 
@@ -34,3 +34,6 @@ form > input, form > button {
 form > label {
     font-size:x-large;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
