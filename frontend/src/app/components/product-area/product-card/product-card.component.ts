@@ -13,12 +13,13 @@ export class ProductCardComponent {
 
 
 //create new event
+
 @Output()
 public deleteMe = new EventEmitter<string>();
 
 
 //report to father what you sent him
-//בלחיצה על הכפתורת יעלה ארוע 
+
 public async deleteProduct() {
   this.deleteMe.emit(this.product._id);
 }

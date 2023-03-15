@@ -37,6 +37,9 @@ export class ProductService {
       //convert to promise
       const product = await firstValueFrom(observable);
 
+      //save product to global store- redux
+      //productsStore.dispatch({ type: ProductActionType.SingleProduct, payload: product })
+    
     return product;
     }
 
@@ -68,16 +71,23 @@ export class ProductService {
   return categories;
   }
 
-          //get all products
-          public async getProductsByCategory(name:string): Promise<ProductModel> {
-  
-            // get the observable
-            const observable = this.http.get<ProductModel>(appConfig.productsByCategory + name); 
-            //convert to promise
-            const products = await firstValueFrom(observable);
-      
-          return products;
-          }
+    //get products by category
+    public async getProductsByCategory(id_cat:string): Promise<any> {
+      // console.log(id_cat);
+      // let allproducts = productsStore.getState().products;
+      // let products = allproducts.filter(p=>p.categoryId===id_cat) ;
+      // if(allproducts.length===0){
+      // // get the observable
+      // const observable = this.http.get<any>(appConfig.productsByCategory + id_cat); 
+      // //convert to promise
+      //  products = await firstValueFrom(observable);
+      // }
+      // console.log(products);
+      const observable = this.http.get<any>(appConfig.productsByCategory + id_cat); 
+      //convert to promise
+      const  products = await firstValueFrom(observable);
+      return products;
+    }
 
 }
 

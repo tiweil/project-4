@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './components/admin-area/header/header.component';
+import { HeaderComponent } from './components/layout-area/header/header.component';
 import { ProductListComponent } from './components/product-area/product-list/product-list.component';
 import { AboutComponent } from './components/about-area/about/about.component';
-import { PageNotFoundComponent } from './components/admin-area/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './components/layout-area/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home-area/home/home.component';
 import { AddProductComponent } from './components/product-area/add-product/add-product.component';
 import { CartComponent } from './components/cart-area/cart/cart.component';
@@ -15,18 +15,18 @@ import { EmptyCartComponent } from './components/cart-area/empty-cart/empty-cart
 import { UpdateCartComponent } from './components/cart-area/update-cart/update-cart.component';
 import { LoginComponent } from './components/login-area/login/login.component';
 import { ContactUsComponent } from './components/about-area/contact-us/contact-us.component';
-import { FooterComponent } from './components/admin-area/footer/footer.component';
+import { FooterComponent } from './components/layout-area/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './components/login-area/register/register.component';
 import { ItemsCartComponent } from './components/cart-area/items-cart/items-cart.component';
 import { LoginMenuComponent } from './components/login-area/login-menu/login-menu.component';
-import { LayoutAdminComponent } from './components/admin-area/layout-admin/layout-admin.component';
-import { MenuAdminComponent } from './components/admin-area/menu-admin/menu-admin.component';
+import { LayoutAdminComponent } from './components/layout-area/layout-admin/layout-admin.component';
+import { MenuAdminComponent } from './components/layout-area/menu-admin/menu-admin.component';
 import { LoginMainComponent } from './components/login-area/login-main/login-main.component';
 import { MainComponent } from './components/login-area/main/main.component';
-import { MenuUserComponent } from './components/user-area/header-user/menu-user/menu-user.component';
-import { LayoutUserComponent } from './components/user-area/header-user/layout-user/layout-user.component';
-import { HeaderUserComponent } from './components/user-area/header-user/header-user.component';
+import { LayoutUserComponent } from './components/layout-area/layout-user/layout-user.component';
+import { MenuUserComponent } from './components/layout-area/menu-user/menu-user.component';
+import { HeaderUserComponent } from './components/layout-area/header-user/header-user.component';
 import { ProductCardUserComponent } from './components/product-user-area/product-card-user/product-card-user.component';
 import { ProductListUserComponent } from './components/product-user-area/product-list-user/product-list-user.component';
 import { OrderDetailsComponent } from './components/order-area/order-details/order-details.component';
@@ -35,7 +35,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldControl, MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-
 
 
 

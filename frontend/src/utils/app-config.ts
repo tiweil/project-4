@@ -8,6 +8,7 @@ class AppConfig {
     public getProductByIdUrl = "http://localhost:3004/product/single/";
     public addProductUrl = "http://localhost:3004/product/add";
     public productsByCategory = "http://localhost:3004/product/category/";
+
     //category
     public getAllCategoryUrl = "http://localhost:3004/category/all";
     //carts
@@ -19,7 +20,6 @@ class AppConfig {
     public deleteItemUrl = "http://localhost:3004/items/del/";
     //order
     public AddOrderUrl = "http://localhost:3004/order/add";
-
 }
 
 export const appConfig = new AppConfig();

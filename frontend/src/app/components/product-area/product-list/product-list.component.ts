@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit{
 
   public products: ProductModel[];
 
-  //DI= Dependency Injection, we get object kind of service 
+  //DI= Dependency Injection, we get object kind of service
   //angular inject object by constructor to this component
   constructor(private productService: ProductService, private itemService: ItemService) {}
 
@@ -35,5 +35,6 @@ export class ProductListComponent implements OnInit{
       alert(err);
     }
   }
+
 
 }

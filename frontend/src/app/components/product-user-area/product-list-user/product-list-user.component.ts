@@ -12,36 +12,41 @@ import { ProductService } from 'src/app/services/product.service';
   styleUrls: ['./product-list-user.component.css']
 })
 export class ProductListUserComponent implements OnInit {
-
+  public categories: CategoryModel[];
   public products: ProductModel[];
+  public searchTerm: string;
   public temp:ProductModel[]=[];
   public isExist:boolean=true;
 
-  // onSearch() {
-  //   // this.products.map((item)=>{
-  //   //   if( item.name.includes(this.searchTerm)){
-  //   //     this.temp.push(item);
-  //   //   }
-  //   // })
-  //   console.log(this.searchTerm);
-  //   this.temp = this.products.filter(item => {
-  //     console.log(item.name)
-  //     return (item.name.includes(this.searchTerm));
-  //   });
-  //   this.products=this.temp;
-  //   console.log(this.temp);
-  // }
-
-
-  //DI= Dependency Injection, we get object kind of service
-  //angular inject object by constructor to this component
   constructor(private productService: ProductService, private itemService: ItemService) {}
 
   public async ngOnInit() {
     try {
       this.products = await this.productService.getAllProducts();
+      this.temp=this.products;
+      this.categories=await this.productService.getAllCategory();
+     
     } catch (err) {
       alert(err);
+    }
+  }
+
+  public async sortByCategory(data:any) {
+    //this.products = await this.productService.getAllProducts();
+    console.log("function is working",data)
+    if(data=='all'){
+      this.temp=this.products;
+    }else{
+      this.temp = await this.productService.getProductsByCategory(data);
+    }
+  }
+  public searchItem(data:string){
+    this.temp=this.products.filter(item=>{return item.name.includes(data)});
+    console.log(this.temp.length)
+    if(this.temp.length==0){
+      this.isExist=false;
+    }else{
+      this.isExist=true;
     }
   }
 
@@ -63,5 +68,19 @@ public async addToCart(product: ProductModel) {
     alert(err);
   }
 }
+  // onSearch() {
+  //   // this.products.map((item)=>{
+  //   //   if( item.name.includes(this.searchTerm)){
+  //   //     this.temp.push(item);
+  //   //   }
+  //   // })
+  //   console.log(this.searchTerm);
+  //   this.temp = this.products.filter(item => {
+  //     console.log(item.name)
+  //     return (item.name.includes(this.searchTerm));
+  //   });
+  //   this.products=this.temp;
+  //   console.log(this.temp);
+  // }
 
 }

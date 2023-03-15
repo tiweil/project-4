@@ -22,18 +22,17 @@ public async AddItemToCart(item:ItemModel): Promise<ItemModel> {
 
 public async itemsByCart(cartId: string): Promise<ItemModel[]> {
     // get the observable
-  const observable = this.http.get<ItemModel[]>(appConfig.itemsByCart + cartId); 
+  const observable = this.http.get<ItemModel[]>(appConfig.itemsByCart + cartId);
     //convert to promise
   const products = await firstValueFrom(observable);
-  
+
   return products;
   }
-
-  //delete item
   public async deleteItem(id: string): Promise<void> {
-  console.log("id:"+id);
-  const observable = this.http.delete(appConfig.deleteItemUrl + id);
-  await firstValueFrom(observable);
-  }
-
+    console.log("id:"+id);
+    const observable = this.http.delete(appConfig.deleteItemUrl + id);
+    await firstValueFrom(observable);
+    }
 }
+//delete item
+
