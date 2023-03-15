@@ -1,10 +1,11 @@
 export class OrderModel {
-  clientId: string;
-  cartId: string;
+  _id?: string;
+  clientId?: string;
+  cartId?: string;
   sum: number;
   city: string;
   street: string;
   arrival_date: Date;
-  order_date: Date;
+  order_date?: string;
   last_fourCC: number;
 }

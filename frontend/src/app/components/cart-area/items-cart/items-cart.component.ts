@@ -26,7 +26,7 @@ public toOrderPage(){
 
 public async ngOnInit() {
 
-}
+  }
 
 public productItem: string;
 public async itemToCart() {
