@@ -1,9 +1,9 @@
 <p>cart works!</p>
 <div class="box">
-    <button>🗑 </button>
+
     name:<br/>
     qty:{{item.qty}}<input type="number" [(ngModel)]="item.qty"(ngModelChange)="onQuantityChange()" /><br/>
     total price:{{item.total_price | currency:"ILS" }}<br/>
-   
+    <button (click)="deleteItem()" >🗑</button><br/>
 </div>
 

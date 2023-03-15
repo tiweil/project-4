@@ -38,11 +38,21 @@ try {
   })
   this.items = await this.itemService.itemsByCart(this.myCart._id);
   console.log(this.items);
-this.productItem = this.items[0].productId;
+  this.productItem = this.items[0].productId;
   console.log(this.items[0].productId);
   } catch (error) {
   console.log(error);
 }
+}
+public async deleteItem(id: string) {
+  console.log(id);
+  try {
+    if(!window.confirm("Are you sure?")) return;
+    await this.itemService.deleteItem(id);
+    alert("Product has been deleted");
+  } catch (err) {
+    alert(err);
+  }
 }
 
 }

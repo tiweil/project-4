@@ -13,7 +13,6 @@ export class ProductCardComponent {
 
 
 //create new event
-
 @Output()
 public deleteMe = new EventEmitter<string>();
 

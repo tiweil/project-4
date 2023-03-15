@@ -1,4 +1,4 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { ItemModel } from 'src/app/models/item.model';
 import { ProductModel } from 'src/app/models/product.model';
 import { ProductActionType, productsStore } from 'src/app/redux/product-state';
@@ -12,13 +12,15 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class CartComponent implements OnInit {
 
+public products: ProductModel[] ;
+public singleProduct: ProductModel[];
+
 @Input()
 public item: ItemModel;
 @Input()
 public product: string;
-
-public products: ProductModel[] ;
-public singleProduct: ProductModel[];
+@Output()
+public deleteMe = new EventEmitter<string>();
 
 
 constructor(private productService: ProductService) {
@@ -34,16 +36,13 @@ public async ngOnInit() {
   this.productService.getAllProducts();
   this.products = productsStore.getState().products;
   //console.log("all products"+this.products[0]);
-
   this.item.qty = 1;
 }
 public onQuantityChange() {
-  //this.products = productsStore.getState().products;
- // console.log("all products"+this.products[0]);
-
-
   this.item.total_price = this.item.qty*this.singleProduct[0].price;
-
+}
+public async deleteItem() {
+  this.deleteMe.emit(this.item._id);
 }
 
 
