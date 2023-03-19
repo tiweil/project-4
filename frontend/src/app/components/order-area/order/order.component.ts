@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class OrderComponent {
   public searchText="";
+  
   constructor(private router:Router){}
 
   public toLayoutPage(){

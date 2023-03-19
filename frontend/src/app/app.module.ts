@@ -38,7 +38,8 @@ import { MatInputModule } from '@angular/material/input';
 import {MatDialogActions, MatDialogModule } from '@angular/material/dialog';
 import { OrderCompleteComponent } from './components/order-area/order-complete/order-complete.component';
 import { HighlighterPipe } from './highlighter.pipe';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 
@@ -82,6 +83,8 @@ import { HighlighterPipe } from './highlighter.pipe';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     AppRoutingModule,
     FormsModule,//Two way binding
     HttpClientModule, //http

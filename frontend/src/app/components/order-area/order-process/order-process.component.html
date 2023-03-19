@@ -26,8 +26,14 @@
     </div>
 
     <div class="form-group">
-      <label for="arrival_date">Date:</label>
-      <input type="date" class="form-control" formControlName="arrival_date">
+      <!-- <label for="arrival_date">Date:</label>
+      <input type="date" class="form-control" formControlName="arrival_date"> -->
+      <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myHolidayFilter" placeholder="Choose a date">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker ></mat-datepicker>
+        <!-- <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myHolidayFilter" placeholder="date:">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker ></mat-datepicker> -->
     </div><br/>
 
     <h5>Payments:</h5><hr/>

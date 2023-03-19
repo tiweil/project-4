@@ -80,5 +80,8 @@ public async deleteAll() {
     alert(err);
   }
 }
+  getTotalCost() {
+    return this.items.map(t => t.total_price).reduce((acc, value) => acc + value, 0);
+  }
 }
 

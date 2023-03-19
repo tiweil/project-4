@@ -6,6 +6,8 @@ import { LoginService } from 'src/app/services/login.service';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderCompleteComponent } from '../order-complete/order-complete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ItemModel } from 'src/app/models/item.model';
+import { ItemService } from 'src/app/services/item.service';
 
 //בשביל חסימת תאריכים
 export interface Times {
@@ -26,7 +28,9 @@ export class OrderProcessComponent implements OnInit{
   public newOrder = new OrderModel();
   public isActive:boolean=false;
   public allOrders:OrderModel[];
-  blockedDates: string[];
+  public items:ItemModel[];
+  public sum:number=0;
+  blockedDates: Date[];
   // public Times:object={
 
   // };
@@ -34,6 +38,7 @@ export class OrderProcessComponent implements OnInit{
   constructor(private formBuilder: FormBuilder,
               private orderService: OrderService,
               private loginService: LoginService,
+              private itemService:ItemService,
               public dialog: MatDialog ) {
     this.myForm = this.formBuilder.group({
       city: ['', Validators.required],
@@ -46,39 +51,69 @@ export class OrderProcessComponent implements OnInit{
     }
 
     public checkDates(orders:OrderModel[]){
-      let temp:string[];
+      let temp:Date[];
       // let counter:number;
 
-      let allTimes:Times[];
+      // let allTimes:Times[];
       for(let i=0,counter=0;i<orders.length;i+=1){
-        let specTime:Times;
-        specTime.date=orders[i].order_date.slice(0,10);
+        // let specTime:Times;
+        // specTime.date=orders[i].order_date.slice(0,10);
         for(let j=1;j<=orders.length;j+=1){
-          if(orders[i].order_date===orders[j].order_date){
+          if(orders[i].order_date.slice(0,10)===orders[j].order_date.slice(0,10)){
             counter+=1;
           }
         }
-        specTime.times=counter;
-        allTimes.push(specTime);
+        if(counter>=3){
+          temp.push(new Date(orders[i].order_date.slice(0,10)))
+        }
+        // specTime.times=counter;
+        // allTimes.push(specTime);
         counter=0;
       }
-      allTimes.map(item=>{
-        if(item.times>=3){
-          temp.push(item.date)
-        }
-      })
+      // allTimes.map(item=>{
+      //   if(item.times>=3){
+      //     temp.push(item.date)
+        // }
+      // })
       return temp;
     }
+
+    // isBlockedDate(selectedDate: string): boolean {
+    //   const date = new Date(selectedDate);
+    //   return this.blockedDates.some(bd =>
+    //     this.datePipe.transform(date, 'yyyy-MM-dd') === this.datePipe.transform(bd, 'yyyy-MM-dd')
+    //   );
+  // }
+  myHolidayFilter = (d: Date): boolean => {
+    const time=d.getTime();
+    return !this.blockedDates.find(x=>x.getTime()==time);
+}
+//   myHolidayFilter = (d: Date): boolean => {
+//     const time=d.getTime();
+//     return !this.blockedDates.find(x=>x.getTime()==time);
+// }
   public async ngOnInit() {
     this.cities = await this.loginService.getCities(this.myCountry);
     this.allOrders=await this.orderService.getAllOrders();
-    // this.blockedDates=this.checkDates(this.allOrders);
-    // console.log(this.allOrders)
+    this.items = await this.itemService.itemsByCart(clientStore.getState().cart._id);
+    this.sum=this.items.map(t => t.total_price).reduce((acc, value) => acc + value, 0);
+
+    this.blockedDates=this.checkDates(this.allOrders);
+    console.log(this.blockedDates)
   }
-  public openDialog(){
+
+  // disabledDates = (date: Date): boolean => {
+  //   // Convert the date to a string in the format yyyy-MM-dd
+  //   const dateString = date.toISOString().slice(0, 10);
+
+  //   // Check if the date should be disabled
+  //   return this.blockedDates.includes(dateString);
+  // }
+
+  public async openDialog(){
     this.isActive=true;
     const dialogRef = this.dialog.open(OrderCompleteComponent);
-
+    // await this.itemService.deleteAllItems(clientStore.getState().cart._id);
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
@@ -102,14 +137,15 @@ export class OrderProcessComponent implements OnInit{
     }
   // If the form is valid, proceed with sending the data to the backend
   const formData = this.myForm.value;
+  console.log(clientStore.getState().client._id,clientStore.getState().cart._id,this.sum,formData.city,formData.street,formData.arrival_date,new Date().toISOString(),formData.last_fourCC)
   this.newOrder = new OrderModel();
-  this.newOrder.clientId._id = clientStore.getState().client._id ;
-  this.newOrder.cartId._id = clientStore.getState().cart._id ;
-  this.newOrder.sum = formData.sum;
+  this.newOrder.clientId = clientStore.getState().client ;
+  this.newOrder.cartId = clientStore.getState().cart ;
+  this.newOrder.sum = this.sum;
   this.newOrder.city = formData.city;
   this.newOrder.street = formData.street;
   this.newOrder.arrival_date = formData.arrival_date;
-  this.newOrder.order_date = new Date().toISOString();;
+  this.newOrder.order_date = new Date().toISOString();
   this.newOrder.last_fourCC = formData.last_fourCC;
   console.log(this.newOrder);
       try{
