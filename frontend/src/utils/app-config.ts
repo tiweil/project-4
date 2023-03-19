@@ -14,12 +14,14 @@ class AppConfig {
     //carts
     public addCartUrl = "http://localhost:3004/cart/add";
     public findCartUrl = "http://localhost:3004/cart/find_cart/";
+    public getAllCart="http://localhost:3004/cart/all";
     //items
     public addItemUrl = "http://localhost:3004/items/add";
     public itemsByCart = "http://localhost:3004/items/all/";
     public deleteItemUrl = "http://localhost:3004/items/del/";
     //order
     public AddOrderUrl = "http://localhost:3004/order/add";
+    public getAllOrdersUrl="http://localhost:3004/order/all";
 }
 
 export const appConfig = new AppConfig();

@@ -19,6 +19,7 @@ public client: ClientModel;
 public myCart: CartModel;
 public items: ItemModel[];
 public temp: ItemModel[];
+public productItem: string;
 
 constructor(private itemService: ItemService,private router: Router) {}
 public toOrderPage(){
@@ -35,7 +36,7 @@ public async ngOnInit() {
 
     this.items = await this.itemService.itemsByCart(this.myCart._id);
     console.log(this.items);
-    this.productItem = this.items[0].productId;
+    // this.productItem = this.items[0].productId;
     console.log(this.items[0].productId);
     this.temp=this.items;
     } catch (error) {
@@ -43,7 +44,6 @@ public async ngOnInit() {
   }
   }
 
-public productItem: string;
 public async itemToCart() {
   try {
     this.myCart = clientStore.getState().cart;
@@ -53,9 +53,6 @@ public async itemToCart() {
     })
 
     this.items = await this.itemService.itemsByCart(this.myCart._id);
-    console.log(this.items);
-    this.productItem = this.items[0].productId;
-    console.log(this.items[0].productId);
     this.temp=this.items;
     } catch (error) {
     console.log(error);
@@ -67,6 +64,8 @@ public async deleteItem(id: string) {
     if(!window.confirm("Are you sure?")) return;
     this.temp=await this.itemService.deleteItem(id);
     alert("Product has been deleted");
+    this.items = await this.itemService.itemsByCart(this.myCart._id);
+    this.temp=this.items;
   } catch (err) {
     alert(err);
   }
