@@ -2,6 +2,7 @@ html, body{
     height: 100%;
     text-align:center;
     margin:0;
+    /* background-image:url(assets/background1.jpg) ; */
     /* background-image: linear-gradient(burlywood, brown); */
     color: black;
 }
