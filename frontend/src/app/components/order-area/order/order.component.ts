@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent {
-
+  public searchText="";
   constructor(private router:Router){}
 
   public toLayoutPage(){

@@ -37,6 +37,7 @@ import { MatFormFieldControl, MatFormFieldModule} from '@angular/material/form-f
 import { MatInputModule } from '@angular/material/input';
 import {MatDialogActions, MatDialogModule } from '@angular/material/dialog';
 import { OrderCompleteComponent } from './components/order-area/order-complete/order-complete.component';
+import { HighlighterPipe } from './highlighter.pipe';
 
 
 
@@ -71,7 +72,8 @@ import { OrderCompleteComponent } from './components/order-area/order-complete/o
     ProductListUserComponent,
     OrderDetailsComponent,
     OrderProcessComponent,
-    OrderCompleteComponent
+    OrderCompleteComponent,
+    HighlighterPipe
 
   ],
   imports: [

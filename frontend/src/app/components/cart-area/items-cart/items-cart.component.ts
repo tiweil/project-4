@@ -42,7 +42,7 @@ public async ngOnInit() {
     } catch (error) {
     console.log(error);
   }
-  }
+ }
 
 public async itemToCart() {
   try {
@@ -53,7 +53,7 @@ public async itemToCart() {
     })
 
     this.items = await this.itemService.itemsByCart(this.myCart._id);
-    this.temp=this.items;
+    console.log(this.items);
     } catch (error) {
     console.log(error);
   }
@@ -65,11 +65,20 @@ public async deleteItem(id: string) {
     this.temp=await this.itemService.deleteItem(id);
     alert("Product has been deleted");
     this.items = await this.itemService.itemsByCart(this.myCart._id);
-    this.temp=this.items;
+    // this.temp=this.items;
   } catch (err) {
     alert(err);
   }
 }
-
+public async deleteAll() {
+  try {
+    if(!window.confirm("Are you sure?")) return;
+    await this.itemService.deleteAllItems(this.myCart._id);
+    alert("Items has been deleted");
+    this.items = await this.itemService.itemsByCart(this.myCart._id);
+  } catch (err) {
+    alert(err);
+  }
+}
 }
 

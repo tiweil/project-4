@@ -45,6 +45,12 @@ public async itemsByCart(cartId: string): Promise<ItemModel[]> {
 
   return carts;
   }
+      //delete all items
+      public async deleteAllItems(cart_id: string): Promise<void> {
+        console.log("id:"+cart_id);
+        const observable = this.http.delete<ItemModel>(appConfig.deleteAllItems + cart_id);
+        await firstValueFrom(observable);
+        }
 }
 
 //delete item

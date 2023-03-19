@@ -72,8 +72,8 @@ export class OrderProcessComponent implements OnInit{
   public async ngOnInit() {
     this.cities = await this.loginService.getCities(this.myCountry);
     this.allOrders=await this.orderService.getAllOrders();
-    this.blockedDates=this.checkDates(this.allOrders);
-    console.log(this.allOrders)
+    // this.blockedDates=this.checkDates(this.allOrders);
+    // console.log(this.allOrders)
   }
   public openDialog(){
     this.isActive=true;
