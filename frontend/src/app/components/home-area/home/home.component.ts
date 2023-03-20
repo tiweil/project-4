@@ -5,6 +5,7 @@ import { ProductModel } from 'src/app/models/product.model';
 import { ItemService } from 'src/app/services/item.service';
 import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,10 @@ export class HomeComponent implements OnInit{
   public orders:OrderModel[];
   //DI= Dependency Injection, we get object kind of service
   //angular inject object by constructor to this component
-  constructor(private productService: ProductService, private orderService:OrderService) {}
-
+  constructor(private router:Router,private productService: ProductService, private itemService:ItemService, private orderService:OrderService) {}
+  public backToMenu(){
+    this.router.navigateByUrl("/layout-admin");
+  }
   public async ngOnInit() {
     try {
       this.products = await this.productService.getAllProducts();

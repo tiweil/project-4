@@ -4,6 +4,7 @@ import { ProductModel } from 'src/app/models/product.model';
 import { clientStore } from 'src/app/redux/login-state';
 import { ItemService } from 'src/app/services/item.service';
 import { ProductService } from 'src/app/services/product.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -13,10 +14,9 @@ import { ProductService } from 'src/app/services/product.service';
 export class ProductListComponent implements OnInit{
 
   public products: ProductModel[];
-
   //DI= Dependency Injection, we get object kind of service
   //angular inject object by constructor to this component
-  constructor(private productService: ProductService, private itemService: ItemService) {}
+  constructor(private productService: ProductService, private itemService: ItemService,private router: Router) {}
 
   public async ngOnInit() {
     try {
@@ -25,6 +25,11 @@ export class ProductListComponent implements OnInit{
       alert(err);
     }
   }
+
+  public backToMenu(){
+    this.router.navigateByUrl("/layout-admin");
+  }
+
   public async deleteProduct(id: string) {
     console.log(id);
     try {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryModel } from 'src/app/models/category.model';
 import { ItemModel } from 'src/app/models/item.model';
 import { ProductModel } from 'src/app/models/product.model';
+import { itemStore } from 'src/app/redux/item-state';
 import { clientStore } from 'src/app/redux/login-state';
 import { ItemService } from 'src/app/services/item.service';
 import { ProductService } from 'src/app/services/product.service';
@@ -17,6 +18,8 @@ export class ProductListUserComponent implements OnInit {
   public searchTerm: string;
   public temp:ProductModel[]=[];
   public isExist:boolean=true;
+  public newItem: ItemModel;
+  public allItems : ItemModel[];
 
   constructor(private productService: ProductService, private itemService: ItemService) {}
 
@@ -25,7 +28,10 @@ export class ProductListUserComponent implements OnInit {
       this.products = await this.productService.getAllProducts();
       this.temp=this.products;
       this.categories=await this.productService.getAllCategory();
-
+      this.allItems =  itemStore.getState().items
+      itemStore.subscribe(() => {
+        this.allItems = itemStore.getState().items;
+      })
     } catch (err) {
       alert(err);
     }
@@ -50,23 +56,36 @@ export class ProductListUserComponent implements OnInit {
     }
   }
 
-  public newItem: ItemModel;
 public async addToCart(product: ProductModel) {
-  console.log(product);
+  // console.log(product);
   this.newItem={productId:product,
                 qty:1,
                 total_price:product.price,
                 cartId:clientStore.getState().cart
   }
-  console.log( this.newItem);
-
+  // console.log( this.newItem);
   try {
-    if(!window.confirm("Are you sure?")) return;
-    await this.itemService.AddItemToCart(this.newItem);
-    alert("Product has been add to your cart");
+    let existingProduct  = this.allItems.find(i => i.productId._id === this.newItem.productId._id);
+    console.log(existingProduct);
+    if(existingProduct){
+      existingProduct.qty += 1;
+      existingProduct.total_price = existingProduct.qty * existingProduct.productId.price ;
+      await this.itemService.updateItem(existingProduct);
+    }else{
+      await this.itemService.AddItemToCart(this.newItem);
+      alert("Product has been add to your cart");
+    }
+
   } catch (err) {
     alert(err);
   }
+  // try {
+  //   if(!window.confirm("Are you sure?")) return;
+  //   await this.itemService.AddItemToCart(this.newItem);
+  //   alert("Product has been add to your cart");
+  // } catch (err) {
+  //   alert(err);
+  // }
 }
   // onSearch() {
   //   // this.products.map((item)=>{
