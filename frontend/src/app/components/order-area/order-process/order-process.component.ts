@@ -51,30 +51,26 @@ export class OrderProcessComponent implements OnInit{
     }
 
     public checkDates(orders:OrderModel[]){
-      let temp:Date[];
+      let temp:Date[]=[];
       // let counter:number;
-
+      console.log(temp)
       // let allTimes:Times[];
       for(let i=0,counter=0;i<orders.length;i+=1){
+        console.log(orders[i])
+        console.log((orders[i].arrival_date).toString().slice(0,10))
         // let specTime:Times;
         // specTime.date=orders[i].order_date.slice(0,10);
-        for(let j=1;j<=orders.length;j+=1){
-          if(orders[i].order_date.slice(0,10)===orders[j].order_date.slice(0,10)){
+        for(let j=1;j<orders.length;j+=1){
+          if(orders[i].arrival_date.toString().slice(0,10)===orders[j].arrival_date.toString().slice(0,10)){
             counter+=1;
           }
         }
         if(counter>=3){
-          temp.push(new Date(orders[i].order_date.slice(0,10)))
+          temp.push(new Date(orders[i].arrival_date.toString().slice(0,10)))
         }
-        // specTime.times=counter;
-        // allTimes.push(specTime);
         counter=0;
       }
-      // allTimes.map(item=>{
-      //   if(item.times>=3){
-      //     temp.push(item.date)
-        // }
-      // })
+
       return temp;
     }
 
@@ -84,10 +80,10 @@ export class OrderProcessComponent implements OnInit{
     //     this.datePipe.transform(date, 'yyyy-MM-dd') === this.datePipe.transform(bd, 'yyyy-MM-dd')
     //   );
   // }
-  myHolidayFilter = (d: Date): boolean => {
-    const time=d.getTime();
-    return !this.blockedDates.find(x=>x.getTime()==time);
-}
+//   myHolidayFilter = (d: Date): boolean => {
+//     const time=d.getTime();
+//     return !this.blockedDates.find(x=>x.getTime()==time);
+// }
 //   myHolidayFilter = (d: Date): boolean => {
 //     const time=d.getTime();
 //     return !this.blockedDates.find(x=>x.getTime()==time);
@@ -97,11 +93,25 @@ export class OrderProcessComponent implements OnInit{
     this.allOrders=await this.orderService.getAllOrders();
     this.items = await this.itemService.itemsByCart(clientStore.getState().cart._id);
     this.sum=this.items.map(t => t.total_price).reduce((acc, value) => acc + value, 0);
-
     this.blockedDates=this.checkDates(this.allOrders);
     console.log(this.blockedDates)
   }
+  dateFilter = (d: Date) => {
+    // Loop through the disabled dates array and compare each date with d
+    for (let date of this.blockedDates) {
+      // If d matches any date in the array, return false
+      if (
+        d.getFullYear() === date.getFullYear() &&
+        d.getMonth() === date.getMonth() &&
+        d.getDate() === date.getDate()
+      ) {
+        return false;
+      }
+    }
 
+     // Otherwise return true
+     return true;
+  };
   // disabledDates = (date: Date): boolean => {
   //   // Convert the date to a string in the format yyyy-MM-dd
   //   const dateString = date.toISOString().slice(0, 10);
