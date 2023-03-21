@@ -44,7 +44,7 @@ export class OrderProcessComponent implements OnInit{
       city: ['', Validators.required],
       street: ['', Validators.required],
       arrival_date:['',Validators.required],
-      last_fourCC:['',[Validators.required,Validators.pattern(/^[0-9]*$/)]],
+      last_fourCC:['',[Validators.required,Validators.pattern(/^[0-9]*$/),Validators.maxLength(16),Validators.minLength(16)]],
       // sum:['',Validators.required],
     });
 
@@ -74,20 +74,6 @@ export class OrderProcessComponent implements OnInit{
       return temp;
     }
 
-    // isBlockedDate(selectedDate: string): boolean {
-    //   const date = new Date(selectedDate);
-    //   return this.blockedDates.some(bd =>
-    //     this.datePipe.transform(date, 'yyyy-MM-dd') === this.datePipe.transform(bd, 'yyyy-MM-dd')
-    //   );
-  // }
-//   myHolidayFilter = (d: Date): boolean => {
-//     const time=d.getTime();
-//     return !this.blockedDates.find(x=>x.getTime()==time);
-// }
-//   myHolidayFilter = (d: Date): boolean => {
-//     const time=d.getTime();
-//     return !this.blockedDates.find(x=>x.getTime()==time);
-// }
   public async ngOnInit() {
     this.cities = await this.loginService.getCities(this.myCountry);
     this.allOrders=await this.orderService.getAllOrders();
@@ -96,6 +82,7 @@ export class OrderProcessComponent implements OnInit{
     this.blockedDates=this.checkDates(this.allOrders);
     console.log(this.blockedDates)
   }
+
   dateFilter = (d: Date) => {
     // Loop through the disabled dates array and compare each date with d
     for (let date of this.blockedDates) {
@@ -112,13 +99,7 @@ export class OrderProcessComponent implements OnInit{
      // Otherwise return true
      return true;
   };
-  // disabledDates = (date: Date): boolean => {
-  //   // Convert the date to a string in the format yyyy-MM-dd
-  //   const dateString = date.toISOString().slice(0, 10);
 
-  //   // Check if the date should be disabled
-  //   return this.blockedDates.includes(dateString);
-  // }
 
   public async openDialog(){
     this.isActive=true;
@@ -136,6 +117,13 @@ export class OrderProcessComponent implements OnInit{
 
   }
 
+  public fourCC(creditNumber:number){
+    let temp=creditNumber.toString();
+    temp=temp.slice(temp.length-4,temp.length);
+    console.log(temp);
+    return Number(temp);
+  }
+
   public async send() {
     if (this.myForm.invalid) {
       // Mark all form controls as touched to trigger the display of validation errors
@@ -145,6 +133,7 @@ export class OrderProcessComponent implements OnInit{
       // Prevent the form from submitting
       return;
     }
+
   // If the form is valid, proceed with sending the data to the backend
   const formData = this.myForm.value;
   console.log(clientStore.getState().client._id,clientStore.getState().cart._id,this.sum,formData.city,formData.street,formData.arrival_date,new Date().toISOString(),formData.last_fourCC)
@@ -156,7 +145,7 @@ export class OrderProcessComponent implements OnInit{
   this.newOrder.street = formData.street;
   this.newOrder.arrival_date = formData.arrival_date;
   this.newOrder.order_date = new Date().toISOString();
-  this.newOrder.last_fourCC = formData.last_fourCC;
+  this.newOrder.last_fourCC = this.fourCC(formData.last_fourCC);
   console.log(this.newOrder);
       try{
         await this.orderService.addOrder(this.newOrder);
