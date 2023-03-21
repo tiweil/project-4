@@ -8,7 +8,7 @@ router.get("/single/:id", controller.getOrderById);
 router.get("/client/:id_num", controller.getOrderByClientId);
 router.get("/city/:city", controller.getOrdersByCity);
 router.post("/add", controller.addOrder);
-router.patch("/update/:id", controller.updateOrder);
+router.put("/update/:id", controller.updateOrder);
 router.delete("/del/:id", controller.deleteOrder);
 router.get("/test", controller.testOrders);
 
