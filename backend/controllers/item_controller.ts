@@ -52,6 +52,7 @@ const deleteItem= async (request: Request, response: Response, next: NextFunctio
     (item?response.status(201).json({message:"deleted"}):response.status(404).json({message:`${item} not found`})))
     .catch((err)=> next(err));
 }
+
 // delete all items 
 const deleteAllItems = async (request: Request, response: Response, next: NextFunction) => {
     const cart_id = request.params.cart; 
