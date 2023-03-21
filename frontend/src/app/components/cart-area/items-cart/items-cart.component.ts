@@ -4,6 +4,7 @@ import { CartModel } from 'src/app/models/cart.model';
 import { ClientModel } from 'src/app/models/client.model';
 import { ItemModel } from 'src/app/models/item.model';
 import { ProductModel } from 'src/app/models/product.model';
+import { itemStore } from 'src/app/redux/item-state';
 import { clientStore } from 'src/app/redux/login-state';
 import { ItemService } from 'src/app/services/item.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -15,71 +16,65 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ItemsCartComponent implements OnInit {
 
-public client: ClientModel;
-public myCart: CartModel;
-public items: ItemModel[];
-public temp: ItemModel[];
-public productItem: string;
+  public client: ClientModel;
+  public myCart: CartModel;
+  public items: ItemModel[];
+  public productItem: string;
 
-constructor(private itemService: ItemService,private router: Router) {}
-public toOrderPage(){
-  this.router.navigateByUrl("/order");
-}
+  constructor(private itemService: ItemService,private router: Router) {}
 
-public async ngOnInit() {
-  try {
-    this.myCart = clientStore.getState().cart;
-    //listening to changes
-    clientStore.subscribe(() => {
+  public toOrderPage(){
+    this.router.navigateByUrl("/order");
+  }
+
+  public async ngOnInit() {
+    try {
       this.myCart = clientStore.getState().cart;
-    })
+      clientStore.subscribe(() => {
+        this.myCart = clientStore.getState().cart;
+      })
+      this.items = await this.itemService.itemsByCart(this.myCart._id);
+      itemStore.subscribe(() => {
+        this.items = itemStore.getState().items;
+      })
+      console.log(this.items);
+      } catch (error) {
+      console.log(error);
+    }
+    }
 
-    this.items = await this.itemService.itemsByCart(this.myCart._id);
-    console.log(this.items);
-    // this.productItem = this.items[0].productId;
-    console.log(this.items[0].productId);
-    this.temp=this.items;
-    } catch (error) {
-    console.log(error);
+  public async itemToCart() {
+    try {
+      clientStore.subscribe(() => {
+        this.myCart = clientStore.getState().cart;
+      })
+      this.items = await this.itemService.itemsByCart(this.myCart._id);
+      } catch (error) {
+      console.log(error);
+    }
   }
- }
+  public async deleteItem(id: string) {
+    try {
+      if(!window.confirm("Are you sure?")) return;
+      await this.itemService.deleteItem(id);
+      alert("Item has been deleted");
+    } catch (err) {
+      alert(err);
+    }
+  }
 
-public async itemToCart() {
-  try {
-    this.myCart = clientStore.getState().cart;
-    //listening to changes
-    clientStore.subscribe(() => {
-      this.myCart = clientStore.getState().cart;
-    })
+  public async deleteAll() {
+    try {
+      if(!window.confirm("Are you sure?")) return;
+      await this.itemService.deleteAllItems(this.myCart._id);
+      alert("Items has been deleted");
+      this.items = await this.itemService.itemsByCart(this.myCart._id);
+    } catch (err) {
+      alert(err);
+    }
+  }
 
-    this.items = await this.itemService.itemsByCart(this.myCart._id);
-    console.log(this.items);
-    } catch (error) {
-    console.log(error);
-  }
-}
-public async deleteItem(id: string) {
-  console.log(id);
-  try {
-    if(!window.confirm("Are you sure?")) return;
-    this.temp=await this.itemService.deleteItem(id);
-    alert("Product has been deleted");
-    this.items = await this.itemService.itemsByCart(this.myCart._id);
-    // this.temp=this.items;
-  } catch (err) {
-    alert(err);
-  }
-}
-public async deleteAll() {
-  try {
-    if(!window.confirm("Are you sure?")) return;
-    await this.itemService.deleteAllItems(this.myCart._id);
-    alert("Items has been deleted");
-    this.items = await this.itemService.itemsByCart(this.myCart._id);
-  } catch (err) {
-    alert(err);
-  }
-}
+
   getTotalCost() {
     return this.items.map(t => t.total_price).reduce((acc, value) => acc + value, 0);
   }

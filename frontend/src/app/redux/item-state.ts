@@ -28,14 +28,14 @@ export interface ItemAction {
 //מקבלת אוביקט וסוג פעולה ומחזירה סטייט חדש
 export function itemsReducer(currentState = new ItemState(), action:ItemAction): ItemState {
     const newState = {...currentState};
-    
+
     switch(action.type) {
 
         case ItemActionType.AllItems://the payload here is the arry list of product
         newState.items = action.payload;
         console.log(action.payload);
         break;
-    
+
         case ItemActionType.AddItem: //the paylod here is a new product
             newState.items.push(action.payload);
         break;

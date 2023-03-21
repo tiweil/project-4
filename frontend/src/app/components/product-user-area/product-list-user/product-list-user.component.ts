@@ -56,37 +56,28 @@ export class ProductListUserComponent implements OnInit {
     }
   }
 
-public async addToCart(product: ProductModel) {
-  // console.log(product);
-  this.newItem={productId:product,
-                qty:1,
-                total_price:product.price,
-                cartId:clientStore.getState().cart
-  }
-  // console.log( this.newItem);
-  try {
-    let existingProduct  = this.allItems.find(i => i.productId._id === this.newItem.productId._id);
-    console.log(existingProduct);
-    if(existingProduct){
-      existingProduct.qty += 1;
-      existingProduct.total_price = existingProduct.qty * existingProduct.productId.price ;
-      await this.itemService.updateItem(existingProduct);
-    }else{
-      await this.itemService.AddItemToCart(this.newItem);
-      alert("Product has been add to your cart");
+  public async addToCart(product: ProductModel) {
+    this.newItem={productId:product,
+                  qty:1,
+                  total_price:product.price,
+                  cartId:clientStore.getState().cart
     }
+    try {
+      let existingProduct  = this.allItems.find(i => i.productId._id === this.newItem.productId._id);
+      console.log(existingProduct);
+      if(existingProduct){
+        existingProduct.qty += 1;
+        existingProduct.total_price = existingProduct.qty * existingProduct.productId.price ;
+        await this.itemService.updateItem(existingProduct);
+      }else{
+        await this.itemService.AddItemToCart(this.newItem);
+        alert("Product has been add to your cart");
+      }
 
-  } catch (err) {
-    alert(err);
+    } catch (err) {
+      alert(err);
+    }
   }
-  // try {
-  //   if(!window.confirm("Are you sure?")) return;
-  //   await this.itemService.AddItemToCart(this.newItem);
-  //   alert("Product has been add to your cart");
-  // } catch (err) {
-  //   alert(err);
-  // }
-}
   // onSearch() {
   //   // this.products.map((item)=>{
   //   //   if( item.name.includes(this.searchTerm)){
