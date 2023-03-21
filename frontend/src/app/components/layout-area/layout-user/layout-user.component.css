@@ -19,3 +19,8 @@ main {
 div, div > * {
   border: 1px solid;
 }
+body {
+  border: none !important;
+  margin: 0px !important;
+  padding: 0 !important;
+}

@@ -4,7 +4,7 @@
       <mat-button-toggle class="nav-link active" (click)="sortByCategory('all')">All</mat-button-toggle>
       <mat-button-toggle class="nav-link active" *ngFor="let c of categories" (click)="sortByCategory(c._id)" mat-button color="primary">{{c.name}}</mat-button-toggle>
     </mat-button-toggle-group>
-    <form class="d-flex input-group w-auto" style="position: absolute; right: 0;margin-right: 10px;" id="search-form">
+    <form class="d-flex input-group w-auto" style="position: absolute; right: 0;margin-right: 25px;" id="search-form">
       <input
         type="search"
         class="form-control"
@@ -19,40 +19,6 @@
     </form>
   </mat-toolbar-row>
 </mat-toolbar>
-<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container-fluid">
-
-
-    <div
-      class="collapse navbar-collapse"
-      id="navbarSupportedContent"
-      mdbCollapse
-    >
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0" >
-        <li class="nav-item">
-          <button class="nav-link active" (click)="sortByCategory('all')" >All</button>
-        </li>
-        <li class="nav-item">
-          <button class="nav-link active" *ngFor="let c of categories" (click)="sortByCategory(c._id)" >{{c.name}}</button>
-        </li>
-      </ul>
-
-      <form class="d-flex input-group w-auto">
-        <input
-          type="search"
-          class="form-control"
-          placeholder="search for item"
-          aria-label="Search"
-          style="width: 150px;height: 35px;"
-          #myInput
-        />
-        <button class="btn btn-outline-primary" type="button" style="width: 70px;height: 35px;" (click)="searchItem(myInput.value)">
-          Search
-        </button>
-      </form>
-    </div>
-  </div>
-</nav> -->
 
 <div class="scroll">
   <app-product-card-user *ngFor="let p of temp" [product]="p"  (addItem)="addToCart(p)"></app-product-card-user>
