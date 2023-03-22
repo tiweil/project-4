@@ -14,7 +14,7 @@ export class LayoutUserComponent {
     map(result => result.matches),
     shareReplay()
   );
-  shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
+  // shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 
   constructor(private breakpointObserver: BreakpointObserver){}
 }
