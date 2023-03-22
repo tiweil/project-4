@@ -82,12 +82,14 @@ export class ProductListUserComponent implements OnInit {
     try {
       let existingProduct  = this.allItems.find(i => i.productId._id === this.newItem.productId._id);
       console.log(existingProduct);
+      let updateItem = existingProduct;
       if(existingProduct){
         existingProduct.qty += 1;
         existingProduct.total_price = existingProduct.qty * existingProduct.productId.price ;
-        await this.itemService.updateItem(existingProduct);
+        await this.itemService.updateItem(updateItem);
       }else{
         await this.itemService.AddItemToCart(this.newItem);
+        console.log( this.allItems );
         alert("Product has been add to your cart");
       }
 

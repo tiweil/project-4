@@ -13,13 +13,14 @@ const getItemsByCart = async (request: Request, response: Response, next: NextFu
     .catch((err)=> next(err));
 }
 //add item
+//add item
 const addItem= async (request: Request, response: Response, next: NextFunction) => {
     const item =request.body;
     const newItem = new ItemModel({
         _id:new mongoose.Types.ObjectId(),
         ...item,
     });
-    return newItem
+    return (await newItem.populate(['productId', 'cartId']))
     .save()
     .then((item)=> response.status(201).json(item))
     .catch((err)=> next(err));
